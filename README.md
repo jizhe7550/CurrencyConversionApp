@@ -38,4 +38,6 @@ If you want to instead make a github repo and just send us a link to it, that's 
 
 Have fun!
 
-![UI Suggested Wireframe](![ui_suggestion](https://github.com/user-attachments/assets/15ac9b26-dabf-409a-b457-9ab22a6222e2))
+![ui_suggestion](https://github.com/user-attachments/assets/b88d9f3c-6258-4890-a3c6-b65bb4587225)
+
+
