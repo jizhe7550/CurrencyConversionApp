@@ -12,5 +12,5 @@ dependencies {
     implementation(libs.bundles.koin)
 
     implementation(projects.core.domain)
-    implementation(projects.core.database)
+    implementation(libs.androidx.datastore.preferences)
 }
