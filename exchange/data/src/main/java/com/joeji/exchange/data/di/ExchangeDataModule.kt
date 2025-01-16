@@ -1,8 +1,13 @@
 package com.joeji.exchange.data.di
 
 import com.joeji.core.data.di.qualifier.IoDispatcherQualifier
+import com.joeji.exchange.data.KtorRemoteGatewayImpl
+import com.joeji.exchange.data.gateway.ExchangeLocalGateway
+import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
+import com.joeji.exchange.data.gateway.RoomLocalGatewayImpl
 import com.joeji.exchange.data.repository.DefaultExchangeRepository
 import com.joeji.exchange.domain.repository.ExchangeRepository
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -15,4 +20,7 @@ val exchangeDataModule = module {
             preferencesGateway = get(),
         )
     }.bind<ExchangeRepository>()
+
+    singleOf(::RoomLocalGatewayImpl).bind<ExchangeLocalGateway>()
+    singleOf(::KtorRemoteGatewayImpl).bind<ExchangeRemoteGateway>()
 }

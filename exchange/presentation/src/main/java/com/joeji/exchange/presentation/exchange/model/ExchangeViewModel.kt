@@ -2,7 +2,7 @@ package com.joeji.exchange.presentation.exchange.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joeji.core.domain.exchange.model.Currency
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.presentation.ui.UiText
 import com.joeji.core.presentation.ui.formatToTwoDecimalPlaces
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase

@@ -66,5 +66,4 @@ dependencies {
     implementation(projects.exchange.presentation)
     implementation(projects.exchange.domain)
     implementation(projects.exchange.data)
-    implementation(projects.exchange.network)
 }

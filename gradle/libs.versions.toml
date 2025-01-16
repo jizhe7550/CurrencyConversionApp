@@ -21,7 +21,7 @@ materialIconsExtended = "1.7.6"
 navigationCompose = "2.8.5"
 securityCryptoKtx = "1.1.0-alpha06"
 timber = "5.0.1"
-ksp = "2.0.21-1.0.25"
+ksp = "2.1.0-1.0.29"
 room = "2.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
@@ -60,9 +60,9 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
-kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines"}
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 play-feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "playFeatureDelivery" }
 play-feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "playFeatureDelivery" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
@@ -97,10 +97,10 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version.ref = "maps" }
-google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation"}
+google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation" }
 org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
-google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
+google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-wear-compose-material = { group = "androidx.wear.compose", name = "compose-material3", version.ref = "composeMaterialWearOs" }
 androidx-wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "composeWearOs" }
@@ -125,7 +125,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 room = { id = "androidx.room", version.ref = "room" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
-mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 currencyconversionapp-android-application = { id = "currencyconversionapp.android.application", version = "unspecified" }

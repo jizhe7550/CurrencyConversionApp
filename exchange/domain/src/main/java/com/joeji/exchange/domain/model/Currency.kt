@@ -1,4 +1,4 @@
-package com.joeji.core.domain.exchange.model
+package com.joeji.exchange.domain.model
 
 data class Currency(
     val currencyType: String,

@@ -1,19 +1,19 @@
-package com.joeji.exchange.network
+package com.joeji.exchange.data
 
 import com.joeji.core.data.BuildConfig
 import com.joeji.core.data.network.get
-import com.joeji.core.domain.exchange.RemoteGateway
-import com.joeji.core.domain.exchange.model.Currency
-import com.joeji.core.domain.exchange.model.CurrencyResponse
+import com.joeji.exchange.domain.model.Currency
+import com.joeji.exchange.domain.model.CurrencyResponse
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
 import com.joeji.core.domain.util.map
-import com.joeji.exchange.network.dto.CurrencyResponseDto
+import com.joeji.exchange.data.dto.CurrencyResponseDto
+import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
 import io.ktor.client.HttpClient
 
 class KtorRemoteGatewayImpl constructor(
     private val httpClient: HttpClient
-) : RemoteGateway {
+) : ExchangeRemoteGateway {
 
     override suspend fun fetchCurrencyList(): Result<CurrencyResponse, DataError.Network> {
         return httpClient.get<CurrencyResponseDto>(

@@ -1,14 +1,14 @@
 package com.joeji.exchange.data.repository
 
 import com.joeji.core.data.gateway.PreferencesGateway
-import com.joeji.core.domain.exchange.LocalGateway
-import com.joeji.core.domain.exchange.RemoteGateway
-import com.joeji.core.domain.exchange.model.Currency
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
 import com.joeji.core.domain.util.Result.Error
 import com.joeji.core.domain.util.Result.Success
 import com.joeji.core.domain.util.asEmptyDataResult
+import com.joeji.exchange.data.gateway.ExchangeLocalGateway
+import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
 import com.joeji.exchange.domain.repository.ExchangeRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DefaultExchangeRepository constructor(
-    private val remoteGateway: RemoteGateway,
-    private val localGateway: LocalGateway,
+    private val remoteGateway: ExchangeRemoteGateway,
+    private val localGateway: ExchangeLocalGateway,
     private val preferencesGateway: PreferencesGateway,
     private val ioDispatcher: CoroutineDispatcher,
 ) : ExchangeRepository {

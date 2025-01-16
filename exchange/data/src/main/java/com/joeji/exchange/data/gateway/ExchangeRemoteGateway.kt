@@ -1,10 +1,10 @@
-package com.joeji.core.domain.exchange
+package com.joeji.exchange.data.gateway
 
-import com.joeji.core.domain.exchange.model.CurrencyResponse
+import com.joeji.exchange.domain.model.CurrencyResponse
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
 
-interface RemoteGateway {
+interface ExchangeRemoteGateway {
 
     suspend fun fetchCurrencyList(): Result<CurrencyResponse, DataError.Network>
 

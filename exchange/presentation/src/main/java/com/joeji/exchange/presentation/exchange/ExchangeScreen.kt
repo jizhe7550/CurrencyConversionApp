@@ -33,11 +33,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.joeji.core.domain.exchange.model.Currency
 import com.joeji.core.presentation.designsystem.CurrencyConversionAppTheme
 import com.joeji.core.presentation.designsystem.component.DefaultListItem
 import com.joeji.core.presentation.designsystem.component.DefaultTextField
 import com.joeji.core.presentation.ui.ObserveAsEvents
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.presentation.exchange.model.CurrencyUIModel
 import com.joeji.exchange.presentation.exchange.model.ExchangeEvent
 import com.joeji.exchange.presentation.exchange.model.ExchangeState
@@ -173,10 +173,11 @@ private fun CurrencyLazyList(
             key = { currencies[it].key }
         ) { index ->
             val item = currencies[index]
+
             HorizontalDivider()
             DefaultListItem(
                 leftText = item.currencyType,
-                rightText = item.rate.toString(),
+                rightText = item.rate,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)

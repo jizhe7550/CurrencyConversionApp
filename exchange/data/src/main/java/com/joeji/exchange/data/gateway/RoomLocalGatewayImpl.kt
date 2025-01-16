@@ -1,20 +1,18 @@
-package com.joeji.core.database
+package com.joeji.exchange.data.gateway
 
 import android.database.sqlite.SQLiteFullException
 import com.joeji.core.database.dao.CurrencyDao
-import com.joeji.core.database.mapper.toCurrency
-import com.joeji.core.database.mapper.toCurrencyEntity
-import com.joeji.core.domain.exchange.model.Currency
-import com.joeji.core.domain.exchange.CurrencyType
-import com.joeji.core.domain.exchange.LocalGateway
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
+import com.joeji.exchange.data.mapper.toCurrency
+import com.joeji.exchange.data.mapper.toCurrencyEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class RoomLocalGatewayImpl constructor(
     private val currencyDao: CurrencyDao
-) : LocalGateway {
+) : ExchangeLocalGateway {
 
     override suspend fun saveCurrencyList(currencyList: List<Currency>): Result<List<CurrencyType>, DataError.Local> {
         return try {

@@ -1,7 +1,7 @@
 package com.joeji.exchange.presentation.exchange.model
 
 import androidx.compose.runtime.Immutable
-import com.joeji.core.domain.exchange.model.Currency
+import com.joeji.exchange.domain.model.Currency
 
 @Immutable
 data class ExchangeState(

@@ -1,4 +1,4 @@
-package com.joeji.exchange.network.dto
+package com.joeji.exchange.data.dto
 
 import kotlinx.serialization.Serializable
 

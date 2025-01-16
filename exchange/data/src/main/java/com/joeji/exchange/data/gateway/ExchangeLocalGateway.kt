@@ -1,13 +1,13 @@
-package com.joeji.core.domain.exchange
+package com.joeji.exchange.data.gateway
 
-import com.joeji.core.domain.exchange.model.Currency
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
 typealias CurrencyType = String
 
-interface LocalGateway {
+interface ExchangeLocalGateway {
 
     suspend fun saveCurrencyList(currencyList: List<Currency>): Result<List<CurrencyType>, DataError.Local>
 

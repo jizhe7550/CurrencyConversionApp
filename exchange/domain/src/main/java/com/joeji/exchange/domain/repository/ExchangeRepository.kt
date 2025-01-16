@@ -1,6 +1,6 @@
 package com.joeji.exchange.domain.repository
 
-import com.joeji.core.domain.exchange.model.Currency
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
 import kotlinx.coroutines.flow.Flow
