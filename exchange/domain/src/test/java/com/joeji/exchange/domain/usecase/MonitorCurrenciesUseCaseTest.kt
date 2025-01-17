@@ -21,7 +21,7 @@ class MonitorCurrenciesUseCaseTest {
 
     @BeforeEach
     fun setUp() {
-        mockExchangeRepository = mockk(relaxed = true)
+        mockExchangeRepository = mockk()
         underTest = MonitorCurrenciesUseCase(
             repository = mockExchangeRepository
         )

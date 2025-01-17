@@ -1,6 +1,8 @@
 package com.joeji.exchange.domain.usecase
 
-import com.joeji.exchange.domain.usecase.util.FakeExchangeRepository
+import com.joeji.exchange.domain.repository.ExchangeRepository
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -10,23 +12,24 @@ import org.junit.jupiter.api.Test
 class GetBaseCurrencyTypeUseCaseTest {
 
     private lateinit var underTest: GetBaseCurrencyTypeUseCase
-    private val fakeExchangeRepository = FakeExchangeRepository()
+    private lateinit var mockExchangeRepository: ExchangeRepository
 
     @BeforeEach
     fun setUp() {
+        mockExchangeRepository = mockk()
         underTest = GetBaseCurrencyTypeUseCase(
-            repository = fakeExchangeRepository
+            repository = mockExchangeRepository
         )
     }
 
     @AfterEach
     fun tearDown() {
-        fakeExchangeRepository.resetFake()
     }
 
     @Test
     fun `test that usecase returns correct base currency type`() = runTest {
-        val expectedBaseCurrency = fakeExchangeRepository.getBaseCurrencyType()
+        val expectedBaseCurrency = "USD"
+        coEvery { mockExchangeRepository.getBaseCurrencyType() } returns expectedBaseCurrency
 
         val result = underTest()
 

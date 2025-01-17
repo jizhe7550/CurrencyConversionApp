@@ -1,7 +1,7 @@
 package com.joeji.exchange.data.di
 
 import com.joeji.core.data.di.qualifier.IoDispatcherQualifier
-import com.joeji.exchange.data.KtorRemoteGatewayImpl
+import com.joeji.exchange.data.gateway.KtorRemoteGatewayImpl
 import com.joeji.exchange.data.gateway.ExchangeLocalGateway
 import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
 import com.joeji.exchange.data.gateway.RoomLocalGatewayImpl

@@ -1,6 +1,8 @@
 package com.joeji.exchange.domain.usecase
 
-import com.joeji.exchange.domain.usecase.util.FakeExchangeRepository
+import com.joeji.exchange.domain.repository.ExchangeRepository
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -14,24 +16,24 @@ import kotlin.test.assertTrue
 class IsRequestAllowedUseCaseTest {
 
     private lateinit var underTest: IsRequestAllowedUseCase
-    private val fakeExchangeRepository = FakeExchangeRepository()
+    private lateinit var mockExchangeRepository: ExchangeRepository
 
     @BeforeEach
     fun setUp() {
+        mockExchangeRepository = mockk()
         underTest = IsRequestAllowedUseCase(
-            repository = fakeExchangeRepository
+            repository = mockExchangeRepository
         )
     }
 
     @AfterEach
     fun tearDown() {
-        fakeExchangeRepository.resetFake()
     }
 
     @Test
     fun `test that usecase should return true when last request time is null,which is login at the first time`() =
         runTest {
-            fakeExchangeRepository.setCurrentRequestTime(null)
+            every { mockExchangeRepository.getLastRequestTime() } returns null
 
             val result = underTest()
 
@@ -48,8 +50,7 @@ class IsRequestAllowedUseCaseTest {
             val lastRequestTime =
                 currentTime - IsRequestAllowedUseCase.THIRTY_MINUTES_IN_MILLIS - 1000
 
-            // Mock last request
-            fakeExchangeRepository.saveCurrentRequestTime(lastRequestTime)
+            every { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
 
             val result = underTest()
 
@@ -66,7 +67,7 @@ class IsRequestAllowedUseCaseTest {
             val lastRequestTime =
                 currentTime - IsRequestAllowedUseCase.THIRTY_MINUTES_IN_MILLIS + 1000
 
-            fakeExchangeRepository.saveCurrentRequestTime(lastRequestTime)
+            every { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
 
             val result = underTest()
 

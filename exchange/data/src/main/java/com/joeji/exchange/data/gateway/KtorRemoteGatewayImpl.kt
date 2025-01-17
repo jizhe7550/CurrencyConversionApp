@@ -1,4 +1,4 @@
-package com.joeji.exchange.data
+package com.joeji.exchange.data.gateway
 
 import com.joeji.core.data.BuildConfig
 import com.joeji.core.data.network.get
@@ -8,7 +8,6 @@ import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
 import com.joeji.core.domain.util.map
 import com.joeji.exchange.data.dto.CurrencyResponseDto
-import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
 import io.ktor.client.HttpClient
 
 class KtorRemoteGatewayImpl constructor(

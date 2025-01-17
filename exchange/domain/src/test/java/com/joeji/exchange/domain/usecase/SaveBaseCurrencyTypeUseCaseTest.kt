@@ -18,7 +18,7 @@ class SaveBaseCurrencyTypeUseCaseTest {
 
     @BeforeEach
     fun setUp() {
-        mockExchangeRepository = mockk(relaxed = true)
+        mockExchangeRepository = mockk()
         underTest = SaveBaseCurrencyTypeUseCase(
             repository = mockExchangeRepository
         )
