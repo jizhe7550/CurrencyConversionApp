@@ -2,9 +2,9 @@ package com.joeji.exchange.presentation.exchange.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.presentation.ui.UiText
 import com.joeji.core.presentation.ui.formatToTwoDecimalPlaces
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.GetBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
@@ -12,7 +12,9 @@ import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
 import com.joeji.exchange.presentation.R
 import com.joeji.exchange.presentation.exchange.mapper.toUIModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -37,6 +39,8 @@ class ExchangeViewModel(
 
     private val eventChannel = Channel<ExchangeEvent>()
     val events = eventChannel.receiveAsFlow()
+
+    private var amountChangeJob: Job? = null
 
     init {
         monitorCurrencies()
@@ -95,9 +99,18 @@ class ExchangeViewModel(
     }
 
     fun onAmountChange(input: String) {
-        viewModelScope.launch {
+        amountChangeJob?.cancel()
+        amountChangeJob = viewModelScope.launch {
             val validAmount = input.toDoubleOrNull()
             if (validAmount != null) {
+                _uiState.update {
+                    it.copy(
+                        amount = formatToTwoDecimalPlaces(validAmount),
+                    )
+                }
+
+                delay(100)
+
                 val currencies = _uiState.value.currencies
                 val baseCurrency = _uiState.value.baseCurrency
 
@@ -109,7 +122,6 @@ class ExchangeViewModel(
 
                 _uiState.update {
                     it.copy(
-                        amount = formatToTwoDecimalPlaces(validAmount),
                         currencyUIModel = uiModel
                     )
                 }
@@ -127,9 +139,9 @@ class ExchangeViewModel(
     }
 
     private suspend fun generateUiModel(
-        baseCurrency: Currency,
         currencies: List<Currency>,
-        validAmount: Double
+        baseCurrency: Currency = _uiState.value.baseCurrency,
+        validAmount: Double = _uiState.value.amount.toDouble(),
     ): List<CurrencyUIModel> = withContext(defaultDispatcher) {
         currencies.map { currency ->
             var newRate = currency.rate * validAmount / baseCurrency.rate

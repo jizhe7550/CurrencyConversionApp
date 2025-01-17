@@ -10,7 +10,7 @@ android {
 dependencies {
     implementation(libs.timber)
     implementation(libs.bundles.koin)
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(projects.core.domain)
-    implementation(libs.androidx.datastore.preferences)
 }

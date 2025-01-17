@@ -7,7 +7,7 @@ class FetchCurrenciesUseCase constructor(
     private val repository: ExchangeRepository,
 ) {
     suspend operator fun invoke() {
-        if (isRequestAllowedUseCase()){
+        while (isRequestAllowedUseCase()){
             repository.fetchCurrencies()
         }
     }

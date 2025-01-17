@@ -15,9 +15,6 @@ android {
 }
 
 dependencies {
-    // Coil
-    implementation(libs.coil.compose)
-
     // Compose
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.material.icons.extended)
@@ -33,29 +30,16 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    // Crypto
-    implementation(libs.androidx.security.crypto.ktx)
+    // Timber
+    implementation(libs.timber)
 
+    // Koin
     implementation(libs.bundles.koin)
 
-    api(libs.play.feature.delivery)
-    api(libs.play.feature.delivery.ktx)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-    // Location
-    implementation(libs.google.android.gms.play.services.location)
-
-    // Splash screen
-    implementation(libs.androidx.core.splashscreen)
-
-    // Timber
-    implementation(libs.timber)
 
     implementation(projects.core.presentation.designsystem)
     implementation(projects.core.presentation.ui)
@@ -66,4 +50,8 @@ dependencies {
     implementation(projects.exchange.presentation)
     implementation(projects.exchange.domain)
     implementation(projects.exchange.data)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

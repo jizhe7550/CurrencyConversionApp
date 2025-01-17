@@ -15,7 +15,7 @@ interface CurrencyDao {
     @Upsert
     suspend fun upsertCurrencies(currencyEntities: List<CurrencyEntity>)
 
-    @Query("SELECT * FROM currencyentity")
+    @Query("SELECT * FROM currencyentity ORDER BY currencyType ASC")
     fun getCurrencies(): Flow<List<CurrencyEntity>>
 
     @Query("DELETE FROM currencyentity WHERE currencyType=:currencyType")

@@ -1,22 +1,19 @@
 [versions]
 agp = "8.7.3"
 androidTools = "31.8.0"
-datastorePreferences = "1.1.1"
+datastorePreferences = "1.1.2"
 playFeatureDelivery = "2.1.0"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.7.0"
 desugar_jdk_libs = "2.1.4"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
-junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-activityCompose = "1.9.3"
+activityCompose = "1.10.0"
 ktor = "3.0.1"
 ktorClientLogging = "3.0.1"
 koin = "4.0.0"
 lifecycleRuntimeKtx = "2.8.7"
-composeBom = "2024.12.01"
+composeBom = "2025.01.00"
 materialIconsExtended = "1.7.6"
 navigationCompose = "2.8.5"
 securityCryptoKtx = "1.1.0-alpha06"
@@ -37,10 +34,32 @@ secretsPlugin = "2.0.1"
 playServicesMaps = "19.0.0"
 annotation = "1.9.1"
 composeWearOs = "1.4.0"
-composeMaterialWearOs = "1.0.0-alpha30"
+composeMaterialWearOs = "1.0.0-alpha31"
 health = "1.0.0-rc02"
 play-services-wearable = "19.0.0"
 wear = "1.3.0"
+
+# Testing
+androidx-arch = "2.2.0"
+androidx-test = "1.6.1"
+androidx-test-monitor = "1.7.2"
+androidx-work-test = '2.10.0'
+coroutines-test = "1.8.1"
+espresso = "3.6.1"
+fragment-test = "1.8.5"
+junit-test = "1.2.1"
+junit5 = '5.10.1'
+konsist = "0.15.1"
+mockito = "5.6.0"
+mockito-inline = "5.2.0"
+mockito-kotlin = "5.1.0"
+mockk = "1.13.12"
+test-parameter-injector = "1.8"
+truth = "1.4.2"
+turbine = "1.0.0"
+roboelectric = "4.11.1"
+room-test = "2.6.1"
+runner = "1.6.2"
 
 # Project versions
 projectApplicationId = "com.joeji.currencyconversionapp"
@@ -49,6 +68,8 @@ projectMinSdkVersion = "26"
 projectTargetSdkVersion = "35"
 projectCompileSdkVersion = "35"
 projectVersionCode = "1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -66,10 +87,7 @@ kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-cor
 play-feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "playFeatureDelivery" }
 play-feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "playFeatureDelivery" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -78,8 +96,6 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
@@ -109,12 +125,48 @@ play-services-wearable = { group = "com.google.android.gms", name = "play-servic
 androidx-health-services-client = { group = "androidx.health", name = "health-services-client", version.ref = "health" }
 androidx-wear = { group = "androidx.wear", name = "wear", version.ref = "wear" }
 
+# Test
+arch-core-test = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
+fragment-test = { module = "androidx.fragment:fragment-testing", version.ref = "fragment-test" }
+junit-test-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit-test" }
+junit5-bom = { module = "org.junit:junit-bom", version.ref = "junit5" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine" }
+konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espresso" }
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+test-monitor = { module = "androidx.test:monitor", version.ref = "androidx-test-monitor" }
+test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidx-test" }
+test-parameter-injector = { module = "com.google.testparameterinjector:test-parameter-injector", version.ref = "test-parameter-injector" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+truth-ext = { module = "androidx.test.ext:truth", version.ref = "androidx-test" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
+room-test = { module = "androidx.room:room-testing", version.ref = "room-test" }
+runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-work-test = { module = "androidx.work:work-testing", version.ref = "androidx-work-test" }
+
 # Gradle
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -137,6 +189,7 @@ currencyconversionapp-android-room = { id = "currencyconversionapp.android.room"
 currencyconversionapp-android-dynamic-feature = { id = "currencyconversionapp.android.dynamic.feature", version = "unspecified" }
 currencyconversionapp-jvm-library = { id = "currencyconversionapp.jvm.library", version = "unspecified" }
 currencyconversionapp-jvm-ktor = { id = "currencyconversionapp.jvm.ktor", version = "unspecified" }
+currencyconversionapp-testing = { id = "currencyconversionapp.testing", version = "unspecified" }
 currencyconversionapp-android-application-wear-compose = { id = "currencyconversionapp.android.application.wear.compose", version = "unspecified" }
 
 [bundles]
@@ -163,3 +216,7 @@ ktor = [
     "ktor-client-logging",
     "ktor-serialization-kotlinx-json"
 ]
+#Test
+unit-test = ["truth", "mockito", "mockito-inline", "mockito-kotlin", "turbine", "mockk", "konsist","coroutines-test"]
+ui-test = ["roboelectric", "espresso-core", "espresso-intents", "mockk-android"]
+junit5-api = ["junit-jupiter", "junit-jupiter-api", "junit-vintage-engine", "junit-jupiter-params"]

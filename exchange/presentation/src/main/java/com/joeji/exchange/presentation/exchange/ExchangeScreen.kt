@@ -69,7 +69,7 @@ fun ExchangeScreenRoot(
     CurrencyConversionActionScreen(
         uiState = uiState,
         onClick = viewModel::onCurrencySelected,
-        onValueChange = viewModel::onAmountChange
+        onValueChange = viewModel::onAmountChange,
     )
 }
 
@@ -78,6 +78,7 @@ private fun CurrencyConversionActionScreen(
     uiState: ExchangeState,
     onClick: (Currency) -> Unit = {},
     onValueChange: (String) -> Unit = {},
+    onLoadNextItems: () -> Unit = {},
 ) {
 
     Column(
@@ -107,7 +108,9 @@ private fun CurrencyConversionActionScreen(
                 .height(16.dp)
         )
 
-        CurrencyLazyList(currencies = uiState.currencyUIModel)
+        CurrencyLazyList(
+            currencies = uiState.currencyUIModel,
+        )
     }
 }
 
@@ -161,7 +164,7 @@ private fun CurrencyDropDownMenu(
 
 @Composable
 private fun CurrencyLazyList(
-    currencies: List<CurrencyUIModel>
+    currencies: List<CurrencyUIModel>,
 ) {
     LazyColumn(
         modifier = Modifier
