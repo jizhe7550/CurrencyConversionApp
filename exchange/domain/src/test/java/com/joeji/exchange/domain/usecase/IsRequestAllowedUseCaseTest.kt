@@ -69,7 +69,6 @@ class IsRequestAllowedUseCaseTest {
 
             val result = underTest()
 
-            // 验证结果
             assertFalse(
                 result,
                 "Should return false when less than 30 minutes have passed since last request"
