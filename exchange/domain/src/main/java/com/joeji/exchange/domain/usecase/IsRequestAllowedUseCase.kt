@@ -15,6 +15,6 @@ class IsRequestAllowedUseCase constructor(
     }
 
     companion object {
-        private const val THIRTY_MINUTES_IN_MILLIS = 30 * 60 * 1000
+        const val THIRTY_MINUTES_IN_MILLIS = 30 * 60 * 1000
     }
 }

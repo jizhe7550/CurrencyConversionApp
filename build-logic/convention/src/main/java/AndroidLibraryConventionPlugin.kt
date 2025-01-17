@@ -2,6 +2,7 @@ import com.android.build.api.dsl.LibraryExtension
 import com.joeji.convention.ExtensionType
 import com.joeji.convention.configureBuildTypes
 import com.joeji.convention.configureKotlinAndroid
+import com.joeji.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -33,6 +34,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             dependencies {
                 "testImplementation"(kotlin("test"))
+                "testImplementation"(libs.findBundle("unit.test").get())
+                "testImplementation"(libs.findBundle("junit5.api").get())
             }
         }
     }
