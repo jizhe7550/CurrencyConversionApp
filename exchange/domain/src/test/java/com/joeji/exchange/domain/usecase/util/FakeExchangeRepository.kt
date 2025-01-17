@@ -1,4 +1,5 @@
 package com.joeji.exchange.domain.usecase.util
+
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
 import com.joeji.core.domain.util.Result
@@ -8,7 +9,7 @@ import com.joeji.exchange.domain.repository.ExchangeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class FakeExchangeRepository() : ExchangeRepository {
+class FakeExchangeRepository : ExchangeRepository {
 
     private val mockCurrencies = listOf(
         Currency("USD", 1.0),
@@ -17,10 +18,10 @@ class FakeExchangeRepository() : ExchangeRepository {
     )
 
     private var lastRequestTime: Long? = null
-    private var baseCurrency: String = "USD"
+    private var baseCurrency: String = ""
 
     override suspend fun fetchCurrencies(): EmptyResult<DataError> {
-        return  Result.Success(mockCurrencies.map { it.currencyType }).asEmptyDataResult()
+        return Result.Success(mockCurrencies.map { it.currencyType }).asEmptyDataResult()
     }
 
     override suspend fun monitorCurrencies(): Flow<List<Currency>> {
@@ -31,12 +32,12 @@ class FakeExchangeRepository() : ExchangeRepository {
         lastRequestTime = timestamp
     }
 
-    override suspend fun getLastRequestTime(): Long? {
+    override fun getLastRequestTime(): Long? {
         return lastRequestTime
     }
 
     override suspend fun saveBaseCurrencyType(baseCurrency: String, forceUpdate: Boolean) {
-        if (forceUpdate || this.baseCurrency != baseCurrency) {
+        if (forceUpdate || this.baseCurrency.isEmpty()) {
             this.baseCurrency = baseCurrency
         }
     }
@@ -45,12 +46,12 @@ class FakeExchangeRepository() : ExchangeRepository {
         return baseCurrency
     }
 
-    fun setCurrentRequestTime(timestamp: Long?){
+    fun setCurrentRequestTime(timestamp: Long?) {
         lastRequestTime = timestamp
     }
 
-    fun resetFake(){
+    fun resetFake() {
         lastRequestTime = null
-        baseCurrency = "USD"
+        baseCurrency = ""
     }
 }

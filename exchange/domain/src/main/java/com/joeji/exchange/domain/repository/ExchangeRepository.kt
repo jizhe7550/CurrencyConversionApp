@@ -1,8 +1,8 @@
 package com.joeji.exchange.domain.repository
 
-import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
+import com.joeji.exchange.domain.model.Currency
 import kotlinx.coroutines.flow.Flow
 
 interface ExchangeRepository {
@@ -13,9 +13,9 @@ interface ExchangeRepository {
 
     suspend fun saveCurrentRequestTime(timestamp: Long = System.currentTimeMillis())
 
-    suspend fun getLastRequestTime(): Long?
+    fun getLastRequestTime(): Long?
 
-    suspend fun saveBaseCurrencyType(baseCurrency: String,forceUpdate: Boolean = false)
+    suspend fun saveBaseCurrencyType(baseCurrency: String, forceUpdate: Boolean = false)
 
     suspend fun getBaseCurrencyType(): String
 }

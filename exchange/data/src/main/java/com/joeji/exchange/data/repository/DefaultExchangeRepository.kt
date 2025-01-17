@@ -1,7 +1,6 @@
 package com.joeji.exchange.data.repository
 
 import com.joeji.core.data.gateway.PreferencesGateway
-import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
 import com.joeji.core.domain.util.Result.Error
@@ -9,8 +8,11 @@ import com.joeji.core.domain.util.Result.Success
 import com.joeji.core.domain.util.asEmptyDataResult
 import com.joeji.exchange.data.gateway.ExchangeLocalGateway
 import com.joeji.exchange.data.gateway.ExchangeRemoteGateway
+import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.repository.ExchangeRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -23,6 +25,23 @@ class DefaultExchangeRepository constructor(
     private val preferencesGateway: PreferencesGateway,
     private val ioDispatcher: CoroutineDispatcher,
 ) : ExchangeRepository {
+
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(ioDispatcher + job)
+
+    private var cachedLastRequestTime: Long? = null
+
+    init {
+        monitorLastRequestTime()
+    }
+
+    private fun monitorLastRequestTime() {
+        scope.launch {
+            preferencesGateway.monitorLong(LAST_REQUEST_TIME).collect { newTime ->
+                cachedLastRequestTime = newTime
+            }
+        }
+    }
 
     override suspend fun fetchCurrencies(): EmptyResult<DataError> = withContext(ioDispatcher) {
         when (val result = remoteGateway.fetchCurrencyList()) {
@@ -51,9 +70,7 @@ class DefaultExchangeRepository constructor(
         preferencesGateway.putLong(LAST_REQUEST_TIME, timestamp)
     }
 
-    override suspend fun getLastRequestTime(): Long? = withContext(ioDispatcher) {
-        preferencesGateway.monitorLong(LAST_REQUEST_TIME).first().takeIf { it != 0L }
-    }
+    override fun getLastRequestTime(): Long? = cachedLastRequestTime
 
     override suspend fun saveBaseCurrencyType(baseCurrency: String, forceUpdate: Boolean) =
         withContext(ioDispatcher) {
