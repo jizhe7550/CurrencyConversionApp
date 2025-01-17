@@ -1,9 +1,9 @@
 package com.joeji.exchange.domain.usecase
 
 import app.cash.turbine.test
+import com.joeji.core.testing.util.mockCurrencies
 import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.repository.ExchangeRepository
-import com.joeji.exchange.domain.usecase.util.mockCurrencies
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

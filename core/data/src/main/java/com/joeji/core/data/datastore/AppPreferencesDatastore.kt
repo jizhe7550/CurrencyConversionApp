@@ -51,9 +51,6 @@ class AppPreferencesDatastore constructor(
         }
     }
 
-    override fun monitorPreferences(): Flow<Preferences> =
-        appPreferencesDatastore.data
-
     override fun monitorString(key: String, defaultValue: String?) =
         getPreferenceData().map {
             it[stringPreferencesKey(key)] ?: defaultValue

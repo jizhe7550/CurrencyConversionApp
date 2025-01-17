@@ -54,10 +54,10 @@ mockito = "5.6.0"
 mockito-inline = "5.2.0"
 mockito-kotlin = "5.1.0"
 mockk = "1.13.12"
-test-parameter-injector = "1.8"
+test-parameter-injector = "1.18"
 truth = "1.4.2"
 turbine = "1.0.0"
-roboelectric = "4.11.1"
+roboelectric = "4.14"
 room-test = "2.6.1"
 runner = "1.6.2"
 
@@ -68,8 +68,6 @@ projectMinSdkVersion = "26"
 projectTargetSdkVersion = "35"
 projectCompileSdkVersion = "35"
 projectVersionCode = "1"
-junit = "4.13.2"
-junitVersion = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -165,8 +163,6 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -189,7 +185,8 @@ currencyconversionapp-android-room = { id = "currencyconversionapp.android.room"
 currencyconversionapp-android-dynamic-feature = { id = "currencyconversionapp.android.dynamic.feature", version = "unspecified" }
 currencyconversionapp-jvm-library = { id = "currencyconversionapp.jvm.library", version = "unspecified" }
 currencyconversionapp-jvm-ktor = { id = "currencyconversionapp.jvm.ktor", version = "unspecified" }
-currencyconversionapp-testing = { id = "currencyconversionapp.testing", version = "unspecified" }
+currencyconversionapp-android-test = { id = "currencyconversionapp.android.test", version = "unspecified" }
+currencyconversionapp-jvm-test = { id = "currencyconversionapp.jvm.test", version = "unspecified" }
 currencyconversionapp-android-application-wear-compose = { id = "currencyconversionapp.android.application.wear.compose", version = "unspecified" }
 
 [bundles]
@@ -217,6 +214,6 @@ ktor = [
     "ktor-serialization-kotlinx-json"
 ]
 #Test
-unit-test = ["truth", "mockito", "mockito-inline", "mockito-kotlin", "turbine", "mockk", "konsist","coroutines-test"]
+unit-test = ["truth", "mockito", "mockito-inline", "mockito-kotlin", "turbine", "mockk", "konsist", "coroutines-test"]
 ui-test = ["roboelectric", "espresso-core", "espresso-intents", "mockk-android"]
 junit5-api = ["junit-jupiter", "junit-jupiter-api", "junit-vintage-engine", "junit-jupiter-params"]

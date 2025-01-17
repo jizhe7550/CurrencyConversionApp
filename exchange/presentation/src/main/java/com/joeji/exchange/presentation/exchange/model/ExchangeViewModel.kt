@@ -1,5 +1,6 @@
 package com.joeji.exchange.presentation.exchange.model
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joeji.core.presentation.ui.UiText
@@ -105,7 +106,7 @@ class ExchangeViewModel(
             if (validAmount != null) {
                 _uiState.update {
                     it.copy(
-                        amount = formatToTwoDecimalPlaces(validAmount),
+                        amount = validAmount.formatToTwoDecimalPlaces(),
                     )
                 }
 
@@ -138,7 +139,8 @@ class ExchangeViewModel(
         }
     }
 
-    private suspend fun generateUiModel(
+    @VisibleForTesting
+    suspend fun generateUiModel(
         currencies: List<Currency>,
         baseCurrency: Currency = _uiState.value.baseCurrency,
         validAmount: Double = _uiState.value.amount.toDouble(),

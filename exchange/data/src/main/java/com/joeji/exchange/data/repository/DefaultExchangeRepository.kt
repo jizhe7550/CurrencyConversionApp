@@ -43,30 +43,31 @@ class DefaultExchangeRepository constructor(
         }
     }
 
-    override suspend fun fetchCurrencies(): EmptyResult<DataError> = withContext(ioDispatcher) {
-        when (val result = remoteGateway.fetchCurrencyList()) {
-            is Error -> result.asEmptyDataResult()
-            is Success -> {
-                val deferred = async {
-                    localGateway.saveCurrencyList(result.data.currencies).asEmptyDataResult()
-                }.await()
-                launch {
-                    saveCurrentRequestTime()
-                }
-                launch {
-                    saveBaseCurrencyType(result.data.baseCurrency)
-                }
+    override suspend fun fetchCurrencies(fetchTimestamp: Long?): EmptyResult<DataError> =
+        withContext(ioDispatcher) {
+            when (val result = remoteGateway.fetchCurrencyList()) {
+                is Error -> result.asEmptyDataResult()
+                is Success -> {
+                    val deferred = async {
+                        localGateway.saveCurrencyList(result.data.currencies).asEmptyDataResult()
+                    }.await()
+                    launch {
+                        saveCurrentRequestTime(fetchTimestamp ?: System.currentTimeMillis())
+                    }
+                    launch {
+                        saveBaseCurrencyType(result.data.baseCurrency)
+                    }
 
-                deferred.asEmptyDataResult()
+                    deferred.asEmptyDataResult()
+                }
             }
         }
-    }
 
     override suspend fun monitorCurrencies(): Flow<List<Currency>> = withContext(ioDispatcher) {
         localGateway.monitorCurrencyList()
     }
 
-    override suspend fun saveCurrentRequestTime(timestamp: Long) = withContext(ioDispatcher) {
+    private suspend fun saveCurrentRequestTime(timestamp: Long) = withContext(ioDispatcher) {
         preferencesGateway.putLong(LAST_REQUEST_TIME, timestamp)
     }
 
@@ -84,7 +85,7 @@ class DefaultExchangeRepository constructor(
     }
 
     companion object {
-        private const val LAST_REQUEST_TIME = "lastRequestTime"
-        private const val BASE_CURRENCY_TYPE = "baseCurrencyType"
+        const val LAST_REQUEST_TIME = "lastRequestTime"
+        const val BASE_CURRENCY_TYPE = "baseCurrencyType"
     }
 }

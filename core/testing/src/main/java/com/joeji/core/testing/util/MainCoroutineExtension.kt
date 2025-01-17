@@ -1,7 +1,8 @@
-package com.joeji.exchange.domain.usecase.util
+package com.joeji.core.testing.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -30,7 +31,7 @@ import org.junit.jupiter.api.extension.ExtensionContext
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainCoroutineExtension(
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
+    val testDispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : BeforeAllCallback, AfterAllCallback {
 
     /**

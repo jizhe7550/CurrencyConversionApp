@@ -50,5 +50,13 @@ gradlePlugin {
             id = "currencyconversionapp.jvm.ktor"
             implementationClass = "JvmKtorConventionPlugin"
         }
+        register("jvmTest") {
+            id = "currencyconversionapp.jvm.test"
+            implementationClass = "JvmTestConventionPlugin"
+        }
+        register("androidTest") {
+            id = "currencyconversionapp.android.test"
+            implementationClass = "AndroidTestConventionPlugin"
+        }
     }
 }

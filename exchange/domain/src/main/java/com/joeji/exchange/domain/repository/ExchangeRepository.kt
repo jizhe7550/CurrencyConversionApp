@@ -7,11 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExchangeRepository {
 
-    suspend fun fetchCurrencies(): EmptyResult<DataError>
+    suspend fun fetchCurrencies(fetchTimestamp:Long? = null): EmptyResult<DataError>
 
     suspend fun monitorCurrencies(): Flow<List<Currency>>
-
-    suspend fun saveCurrentRequestTime(timestamp: Long = System.currentTimeMillis())
 
     fun getLastRequestTime(): Long?
 

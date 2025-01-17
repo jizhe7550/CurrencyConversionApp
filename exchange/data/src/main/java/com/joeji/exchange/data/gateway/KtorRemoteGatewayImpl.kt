@@ -20,7 +20,6 @@ class KtorRemoteGatewayImpl constructor(
         ).map { dto ->
             CurrencyResponse(
                 baseCurrency = dto.base,
-                timestamp = dto.timestamp,
                 currencies = dto.rates.map { (currencyType, rate) ->
                     Currency(
                         currencyType = currencyType,

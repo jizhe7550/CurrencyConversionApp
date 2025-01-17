@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.feature.ui)
+    alias(libs.plugins.currencyconversionapp.android.test)
 }
 
 android {
@@ -9,4 +10,6 @@ android {
 dependencies {
     implementation(projects.core.domain)
     implementation(projects.exchange.domain)
+
+    testImplementation(projects.core.testing)
 }
