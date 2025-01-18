@@ -25,11 +25,22 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
                     versionName = libs.findVersion("projectVersionName").get().toString()
 
                     defaultConfig {
-                        testInstrumentationRunner = "com.joeji.core.common.androidtest.InstrumentationTestRunner"
+                        testInstrumentationRunner = "com.joeji.core.common.androidtest.HiltTestRunner"
                         vectorDrawables {
                             useSupportLibrary = true
                         }
                     }
+                }
+
+                packaging {
+                    resources.excludes.addAll(
+                        listOf(
+                            "META-INF/LICENSE.md",
+                            "META-INF/LICENSE-notice.md",
+                            "META-INF/NOTICE.md",
+                            "META-INF/gradle/incremental.annotation.processors"
+                        )
+                    )
                 }
 
                 configureKotlinAndroid(this)

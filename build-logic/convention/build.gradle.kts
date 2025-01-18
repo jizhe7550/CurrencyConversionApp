@@ -58,5 +58,9 @@ gradlePlugin {
             id = "currencyconversionapp.android.test"
             implementationClass = "AndroidTestConventionPlugin"
         }
+        register("hilt") {
+            id = "currencyconversionapp.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
     }
 }

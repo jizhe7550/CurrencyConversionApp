@@ -1,17 +1,30 @@
 package com.joeji.core.database.di
 
-import androidx.room.Room
+import android.content.Context
 import com.joeji.core.database.ExchangeDatabase
-import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module
+import com.joeji.core.database.dao.CurrencyDao
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val databaseModule = module {
-    single {
-        Room.databaseBuilder(
-            androidApplication(),
-            ExchangeDatabase::class.java,
-            "exchange.db"
-        ).build()
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+
+    @Provides
+    @Singleton
+    fun provideUserDatabase(@ApplicationContext context: Context): ExchangeDatabase {
+        return ExchangeDatabase.init(
+            context = context,
+        )
     }
-    single { get<ExchangeDatabase>().currencyDao }
+
+    @Provides
+    @Singleton
+    fun providerUserDao(database: ExchangeDatabase): CurrencyDao {
+        return database.currencyDao()
+    }
 }

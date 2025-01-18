@@ -37,6 +37,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.joeji.core.presentation.designsystem.CurrencyConversionAppTheme
 import com.joeji.core.presentation.designsystem.component.DefaultListItem
@@ -47,11 +48,10 @@ import com.joeji.exchange.presentation.model.CurrencyUIModel
 import com.joeji.exchange.presentation.model.ExchangeEvent
 import com.joeji.exchange.presentation.model.ExchangeState
 import com.joeji.exchange.presentation.model.ExchangeViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CurrencyConversionScreenRoot(
-    viewModel: ExchangeViewModel = koinViewModel()
+    viewModel: ExchangeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current

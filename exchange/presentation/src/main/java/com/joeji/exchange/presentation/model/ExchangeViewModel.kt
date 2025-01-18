@@ -2,6 +2,7 @@ package com.joeji.exchange.presentation.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joeji.core.common.di.qualifier.DefaultDispatcher
 import com.joeji.core.presentation.ui.UiText
 import com.joeji.core.presentation.ui.formatToTwoDecimalPlaces
 import com.joeji.exchange.domain.model.Currency
@@ -11,6 +12,7 @@ import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
 import com.joeji.exchange.presentation.R
 import com.joeji.exchange.presentation.mapper.toUIModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -25,13 +27,15 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ExchangeViewModel(
+@HiltViewModel
+class ExchangeViewModel @Inject constructor(
     private val monitorCurrenciesUseCase: MonitorCurrenciesUseCase,
     private val fetchCurrenciesUseCase: FetchCurrenciesUseCase,
     private val monitorBaseCurrencyTypeUseCase: MonitorBaseCurrencyTypeUseCase,
     private val saveBaseCurrencyTypeUseCase: SaveBaseCurrencyTypeUseCase,
-    private val defaultDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ExchangeState())

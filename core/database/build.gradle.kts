@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.library)
     alias(libs.plugins.currencyconversionapp.android.room)
+    alias(libs.plugins.currencyconversionapp.hilt)
 }
 
 android {
@@ -8,7 +9,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.koin)
-
     implementation(projects.core.domain)
 }

@@ -1,5 +1,6 @@
 package com.joeji.core.data.datastore
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -10,17 +11,25 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import com.joeji.core.common.di.qualifier.IoDispatcher
 import com.joeji.core.data.gateway.PreferencesGateway
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import javax.inject.Inject
 
-class AppPreferencesDatastore constructor(
-    private val appPreferencesDatastore: DataStore<Preferences>,
-    private val ioDispatcher: CoroutineDispatcher,
+private const val APP_PREFERENCE_DATASTORE_NAME = "app_preferences"
+
+val Context.appPreferencesDatastore: DataStore<Preferences> by preferencesDataStore(name = APP_PREFERENCE_DATASTORE_NAME)
+
+class AppPreferencesDatastore @Inject constructor(
+    @ApplicationContext private val context: Context,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : PreferencesGateway {
     override suspend fun putString(key: String, value: String) =
         putPreference(stringPreferencesKey(key), value)
@@ -45,7 +54,7 @@ class AppPreferencesDatastore constructor(
         value: T,
     ) {
         withContext(ioDispatcher) {
-            appPreferencesDatastore.edit {
+            context.appPreferencesDatastore.edit {
                 it[prefKey] = value
             }
         }
@@ -93,7 +102,7 @@ class AppPreferencesDatastore constructor(
 
     override suspend fun removeByKey(key: String) {
         withContext(ioDispatcher) {
-            appPreferencesDatastore.edit {
+            context.appPreferencesDatastore.edit {
                 it.remove(stringPreferencesKey(key))
             }
         }
@@ -101,7 +110,7 @@ class AppPreferencesDatastore constructor(
 
     override suspend fun removeByKeys(keys: Array<String>) {
         withContext(ioDispatcher) {
-            appPreferencesDatastore.edit { preference ->
+            context.appPreferencesDatastore.edit { preference ->
                 keys.forEach {
                     preference.remove(stringPreferencesKey(it))
                 }
@@ -109,7 +118,7 @@ class AppPreferencesDatastore constructor(
         }
     }
 
-    private fun getPreferenceData() = appPreferencesDatastore.data
+    private fun getPreferenceData() = context.appPreferencesDatastore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())

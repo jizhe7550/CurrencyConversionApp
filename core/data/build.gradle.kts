@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.library)
     alias(libs.plugins.currencyconversionapp.jvm.ktor)
+    alias(libs.plugins.currencyconversionapp.hilt)
 }
 
 android {
@@ -9,7 +10,6 @@ android {
 
 dependencies {
     implementation(libs.timber)
-    implementation(libs.bundles.koin)
     implementation(libs.androidx.datastore.preferences)
 
     implementation(projects.core.domain)

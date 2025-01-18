@@ -70,7 +70,7 @@ class ExchangeViewModelTest {
         underTest.uiState.test {
             val initialState = awaitItem()
             assertThat(initialState.baseCurrency).isEqualTo(Currency("USD", 1.0))
-            assertThat(initialState.amount).isEqualTo("1.00")
+            assertThat(initialState.amount).isEqualTo("100.00")
             assertThat(initialState.currencyUIModel).isEmpty()
             assertThat(initialState.currencies).isEmpty()
             assertThat(initialState.isLoading).isTrue()
@@ -81,7 +81,7 @@ class ExchangeViewModelTest {
     fun `test that monitorCurrencies works fine`() = runTest {
         val baseCurrency = Currency("EUR", 0.85)
         val mockCurrencies = mockCurrencies()
-        val amount = "1.00"
+        val amount = "100.00"
         val uiModel = mockCurrencies.map {
             it.toUIModel(
                 validAmount = amount.toDouble(),

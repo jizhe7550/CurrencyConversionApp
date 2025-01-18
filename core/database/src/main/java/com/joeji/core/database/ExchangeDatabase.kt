@@ -1,9 +1,13 @@
 package com.joeji.core.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.joeji.core.database.dao.CurrencyDao
 import com.joeji.core.database.entity.CurrencyEntity
+
+const val DATABASE_NAME = "exchange_database"
 
 @Database(
     entities = [
@@ -13,5 +17,16 @@ import com.joeji.core.database.entity.CurrencyEntity
 )
 abstract class ExchangeDatabase : RoomDatabase() {
 
-    abstract val currencyDao: CurrencyDao
+    abstract fun currencyDao(): CurrencyDao
+
+    companion object {
+
+        fun init(
+            context: Context,
+        ): ExchangeDatabase = Room.databaseBuilder(
+            context,
+            ExchangeDatabase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
 }

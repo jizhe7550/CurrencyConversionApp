@@ -1,5 +1,6 @@
 package com.joeji.exchange.data.repository
 
+import com.joeji.core.common.di.qualifier.IoDispatcher
 import com.joeji.core.data.gateway.PreferencesGateway
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.EmptyResult
@@ -18,12 +19,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DefaultExchangeRepository constructor(
+class DefaultExchangeRepository @Inject constructor(
     private val remoteGateway: ExchangeRemoteGateway,
     private val localGateway: ExchangeLocalGateway,
     private val preferencesGateway: PreferencesGateway,
-    private val ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ExchangeRepository {
 
     private val job = SupervisorJob()

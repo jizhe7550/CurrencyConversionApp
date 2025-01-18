@@ -2,15 +2,16 @@ package com.joeji.exchange.data.gateway
 
 import android.database.sqlite.SQLiteFullException
 import com.joeji.core.database.dao.CurrencyDao
-import com.joeji.exchange.domain.model.Currency
 import com.joeji.core.domain.util.DataError
 import com.joeji.core.domain.util.Result
 import com.joeji.exchange.data.mapper.toCurrency
 import com.joeji.exchange.data.mapper.toCurrencyEntity
+import com.joeji.exchange.domain.model.Currency
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomLocalGatewayImpl constructor(
+class RoomLocalGatewayImpl @Inject constructor(
     private val currencyDao: CurrencyDao
 ) : ExchangeLocalGateway {
 

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.application.compose)
     alias(libs.plugins.currencyconversionapp.jvm.ktor)
+    alias(libs.plugins.currencyconversionapp.hilt)
 }
 
 android {
@@ -25,9 +26,6 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
-
-    // Koin
-    implementation(libs.bundles.koin)
 
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

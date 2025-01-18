@@ -1,8 +1,9 @@
 package com.joeji.exchange.domain.usecase
 
 import com.joeji.exchange.domain.repository.ExchangeRepository
+import javax.inject.Inject
 
-class IsRequestAllowedUseCase constructor(
+class IsRequestAllowedUseCase @Inject constructor(
     private val repository: ExchangeRepository,
 ) {
     suspend operator fun invoke(): Boolean {

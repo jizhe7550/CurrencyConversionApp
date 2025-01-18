@@ -25,7 +25,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
                 defaultConfig {
                     testInstrumentationRunner =
-                        "com.joeji.core.common.androidtest.InstrumentationTestRunner"
+                        "com.joeji.core.common.androidtest.HiltTestRunner"
                     consumerProguardFiles("consumer-rules.pro")
                 }
 
@@ -34,7 +34,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                         listOf(
                             "META-INF/LICENSE.md",
                             "META-INF/LICENSE-notice.md",
-                            "META-INF/NOTICE.md"
+                            "META-INF/NOTICE.md",
+                            "META-INF/gradle/incremental.annotation.processors"
                         )
                     )
                 }

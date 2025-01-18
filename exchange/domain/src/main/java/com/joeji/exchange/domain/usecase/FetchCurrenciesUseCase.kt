@@ -2,8 +2,9 @@ package com.joeji.exchange.domain.usecase
 
 import com.joeji.exchange.domain.repository.ExchangeRepository
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class FetchCurrenciesUseCase constructor(
+class FetchCurrenciesUseCase  @Inject constructor(
     private val isRequestAllowedUseCase: IsRequestAllowedUseCase,
     private val repository: ExchangeRepository,
 ) {

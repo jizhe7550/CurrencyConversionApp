@@ -12,6 +12,9 @@ activityCompose = "1.10.0"
 ktor = "3.0.1"
 ktorClientLogging = "3.0.1"
 koin = "4.0.0"
+hilt = "2.52"
+hiltExt = "1.2.0"
+hiltNavigationCompose = "1.2.0"
 lifecycleRuntimeKtx = "2.8.7"
 composeBom = "2025.01.00"
 materialIconsExtended = "1.7.6"
@@ -59,7 +62,8 @@ truth = "1.4.2"
 turbine = "1.0.0"
 roboelectric = "4.14"
 room-test = "2.6.1"
-runner = "1.6.2"
+androidxTestRunner = "1.6.2"
+androidxTestRules = "1.6.1"
 
 # Project versions
 projectApplicationId = "com.joeji.currencyconversionapp"
@@ -100,6 +104,13 @@ koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-wor
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
@@ -156,7 +167,8 @@ truth-ext = { module = "androidx.test.ext:truth", version.ref = "androidx-test" 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "roboelectric" }
 room-test = { module = "androidx.room:room-testing", version.ref = "room-test" }
-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 androidx-work-test = { module = "androidx.work:work-testing", version.ref = "androidx-work-test" }
 
 # Gradle
@@ -173,6 +185,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
@@ -191,6 +204,7 @@ currencyconversionapp-jvm-library = { id = "currencyconversionapp.jvm.library", 
 currencyconversionapp-jvm-ktor = { id = "currencyconversionapp.jvm.ktor", version = "unspecified" }
 currencyconversionapp-android-test = { id = "currencyconversionapp.android.test", version = "unspecified" }
 currencyconversionapp-jvm-test = { id = "currencyconversionapp.jvm.test", version = "unspecified" }
+currencyconversionapp-hilt = { id = "currencyconversionapp.hilt", version = "unspecified" }
 currencyconversionapp-android-application-wear-compose = { id = "currencyconversionapp.android.application.wear.compose", version = "unspecified" }
 
 [bundles]
@@ -207,6 +221,8 @@ compose-debug = [
     "androidx-compose-ui-tooling",
     "androidx-compose-ui-test-manifest",
 ]
+hilt = ["hilt-android", "hilt-compiler", "hilt-core", "hilt-ext-compiler", "hilt-ext-work"]
+hilt-compose = ["androidx-hilt-navigation-compose", "hilt-core", "hilt-android", "hilt-compiler"]
 koin = ["koin-core", "koin-android", "koin-android-workmanager"]
 koin-compose = ["koin-core", "koin-android", "koin-android-workmanager", "koin-androidx-compose"]
 ktor = [
