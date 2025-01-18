@@ -9,6 +9,7 @@ import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.MonitorBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
+import com.joeji.exchange.presentation.mapper.toUIModel
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -125,12 +127,18 @@ class ExchangeViewModelTest {
         }
     }
 
-    @Test
-    fun `test that onAmountChange updates uiState and triggers generateUiModel when input is valid`() =
+    @ParameterizedTest
+    @CsvSource(
+        "100, 100.00",
+        "-100, -100.00",
+        "0, 0.00",
+    )
+    fun `test that onAmountChange updates uiState and triggers generateUiModel when input is valid`(
+        input: String, expectedInput: String,
+    ) =
         runTest {
             val defaultState = ExchangeState()
             val mockCurrencies = mockCurrencies()
-            val input = "100"
             val uiModel = underTest.generateUiModel(
                 currencies = mockCurrencies,
                 baseCurrency = defaultState.baseCurrency,
@@ -146,17 +154,78 @@ class ExchangeViewModelTest {
             underTest.onAmountChange(input)
 
             advanceUntilIdle()
-            val expectInput = "100.00"
 
             underTest.uiState.test {
                 val state = awaitItem()
-                assertThat(state.amount).isEqualTo(expectInput)
+                assertThat(state.amount).isEqualTo(expectedInput)
+                assertThat(state.currencyUIModel).isEqualTo(uiModel)
+            }
+        }
+
+    @Test
+    fun `test that onAmountChange updates uiState and triggers generateUiModel when input is zero`() =
+        runTest {
+            val defaultState = ExchangeState()
+            val mockCurrencies = mockCurrencies()
+            val input = "0.00"
+            val uiModel = mockCurrencies.map {
+                it.toUIModel(
+                    validAmount = input.toDouble(),
+                    baseCurrency = defaultState.baseCurrency
+                )
+            }
+
+            coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
+            coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)
+
+            initViewModel()
+            advanceUntilIdle()
+
+            underTest.onAmountChange(input)
+
+            advanceUntilIdle()
+
+            val expectedInput = "0.00"
+            underTest.uiState.test {
+                val state = awaitItem()
+                assertThat(state.amount).isEqualTo(expectedInput)
+                assertThat(state.currencyUIModel).isEqualTo(uiModel)
+            }
+        }
+
+    @Test
+    fun `test that onAmountChange updates uiState and triggers generateUiModel when input is a negative number`() =
+        runTest {
+            val defaultState = ExchangeState()
+            val mockCurrencies = mockCurrencies()
+            val input = "-0.10"
+            val uiModel = mockCurrencies.map {
+                it.toUIModel(
+                    validAmount = input.toDouble(),
+                    baseCurrency = defaultState.baseCurrency
+                )
+            }
+
+            coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
+            coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)
+
+            initViewModel()
+            advanceUntilIdle()
+
+            underTest.onAmountChange(input)
+
+            advanceUntilIdle()
+
+            val expectedInput = "-0.10"
+            underTest.uiState.test {
+                val state = awaitItem()
+                assertThat(state.amount).isEqualTo(expectedInput)
                 assertThat(state.currencyUIModel).isEqualTo(uiModel)
             }
         }
 
     @ParameterizedTest
-    @ValueSource(strings = ["invalidInput", "##", "0.00", "-10.00"])
+    @ValueSource(strings = ["invalidInput", "##"])
     fun `test that onAmountChange triggers error event when input is invalid input`(invalidInput: String) =
         runTest {
             underTest.onAmountChange(invalidInput)
@@ -171,29 +240,5 @@ class ExchangeViewModelTest {
     fun `test that fetchCurrencies calls use case`() = runTest {
         initViewModel()
         coVerify { fetchCurrenciesUseCase() }
-    }
-
-    @Test
-    fun `test that calculateNewRate works correctly`() {
-        val baseCurrency = Currency(currencyType = "base", rate = 1.0)
-        val fakeCurrency = Currency(currencyType = "fake", rate = 4.5)
-        val validAmount = 100.0
-
-        val result = underTest.calculateNewUIRate(fakeCurrency, validAmount, baseCurrency)
-
-        val expectUIRate = validAmount * fakeCurrency.rate
-        assertThat(result).isEqualTo(expectUIRate)
-    }
-
-    @Test
-    fun `test that calculateNewRate when result is less than 001`() {
-        val baseCurrency = Currency(currencyType = "base", rate = 4.5)
-        val fakeCurrency = Currency(currencyType = "fake", rate = 0.1)
-        val validAmount = 0.01
-
-        val result = underTest.calculateNewUIRate(fakeCurrency, validAmount, baseCurrency)
-
-        val expectUIRate = 0.01
-        assertThat(result).isEqualTo(expectUIRate)
     }
 }

@@ -112,40 +112,44 @@ class ExchangeViewModel(
     fun onAmountChange(input: String) {
         amountChangeJob?.cancel()
         amountChangeJob = viewModelScope.launch {
-            val validAmount = input.toDoubleOrNull()
-            if (validAmount != null && validAmount > 0) {
+            var validAmount = input.toDoubleOrNull()
+            if (validAmount != null) {
                 _uiState.update {
                     it.copy(
                         amount = validAmount.formatToTwoDecimalPlaces(),
                     )
                 }
-
-                delay(100)
-
-                val currencies = _uiState.value.currencies
-                val baseCurrency = _uiState.value.baseCurrency
-
-                val uiModel = generateUiModel(
-                    baseCurrency = baseCurrency,
-                    currencies = currencies,
-                    validAmount = validAmount
-                )
-
-                _uiState.update {
-                    it.copy(
-                        currencyUIModel = uiModel
-                    )
-                }
+                delay(100) //debounce
+                handleValidAmount(validAmount)
             } else {
-                eventChannel.send(
-                    ExchangeEvent.Error(
-                        UiText.StringResource(
-                            R.string.invalid_input_is_not_a_valid_number,
-                            arrayOf(input)
-                        )
-                    )
-                )
+                warningInvalidInput(input)
             }
+        }
+    }
+
+    private suspend fun warningInvalidInput(input: String) {
+        eventChannel.send(
+            ExchangeEvent.Error(
+                UiText.StringResource(
+                    R.string.invalid_input_is_not_a_valid_number,
+                    arrayOf(input)
+                )
+            )
+        )
+    }
+
+    private suspend fun handleValidAmount(validAmount: Double) {
+        val currencies = _uiState.value.currencies
+        val baseCurrency = _uiState.value.baseCurrency
+        val uiModel = generateUiModel(
+            baseCurrency = baseCurrency,
+            currencies = currencies,
+            validAmount = validAmount
+        )
+        _uiState.update {
+            it.copy(
+                currencyUIModel = uiModel
+            )
         }
     }
 
@@ -156,18 +160,7 @@ class ExchangeViewModel(
         validAmount: Double = _uiState.value.amount.toDouble(),
     ): List<CurrencyUIModel> = withContext(defaultDispatcher) {
         currencies.map { currency ->
-            val newRate = calculateNewUIRate(currency, validAmount, baseCurrency)
-            currency.copy(rate = newRate).toUIModel()
+            currency.toUIModel(validAmount, baseCurrency)
         }
-    }
-
-    @VisibleForTesting
-    fun calculateNewUIRate(
-        currency: Currency,
-        validAmount: Double,
-        baseCurrency: Currency
-    ): Double {
-        val newUIRate = currency.rate * validAmount / baseCurrency.rate
-        return maxOf(newUIRate, 0.01)
     }
 }
