@@ -99,12 +99,12 @@ class DefaultExchangeRepositoryTest {
         }
 
     @Test
-    fun `test getBaseCurrencyType returns correct value`() = runTest {
+    fun `test monitorBaseCurrencyType returns correct value`() = runTest {
         val baseCurrency = "USD"
 
         preferencesGateway.putString(BASE_CURRENCY_TYPE, baseCurrency)
 
-        val result = underTest.getBaseCurrencyType()
+        val result = underTest.monitorBaseCurrencyType().first()
 
         assertEquals(baseCurrency, result)
     }

@@ -71,7 +71,13 @@ class DefaultExchangeRepository constructor(
         preferencesGateway.putLong(LAST_REQUEST_TIME, timestamp)
     }
 
-    override fun getLastRequestTime(): Long? = cachedLastRequestTime
+    override suspend fun getLastRequestTime(): Long? = withContext(ioDispatcher) {
+        if (cachedLastRequestTime == null) {
+            preferencesGateway.monitorLong(LAST_REQUEST_TIME).first()
+        } else {
+            cachedLastRequestTime
+        }
+    }
 
     override suspend fun saveBaseCurrencyType(baseCurrency: String, forceUpdate: Boolean) =
         withContext(ioDispatcher) {
@@ -80,8 +86,12 @@ class DefaultExchangeRepository constructor(
             }
         }
 
-    override suspend fun getBaseCurrencyType(): String = withContext(ioDispatcher) {
+    private suspend fun getBaseCurrencyType(): String = withContext(ioDispatcher) {
         preferencesGateway.monitorString(BASE_CURRENCY_TYPE, "").first().toString()
+    }
+
+    override suspend fun monitorBaseCurrencyType(): Flow<String?> = withContext(ioDispatcher) {
+        preferencesGateway.monitorString(BASE_CURRENCY_TYPE, "")
     }
 
     companion object {

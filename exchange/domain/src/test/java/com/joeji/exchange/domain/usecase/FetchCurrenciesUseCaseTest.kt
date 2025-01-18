@@ -41,7 +41,7 @@ class FetchCurrenciesUseCaseTest {
 
     @Test
     fun `test that usecase calls fetchCurrencies when request is allowed`() = runTest {
-        every { isRequestAllowedUseCase() } returns true andThen false
+        coEvery { isRequestAllowedUseCase() } returns true andThen false
 
         val job = launch(testDispatcher) {
             underTest()
@@ -57,7 +57,7 @@ class FetchCurrenciesUseCaseTest {
     @Test
     fun `testThatUseCase does not call fetchCurrencies when request is not allowed`() =
         runTest {
-            every { isRequestAllowedUseCase() } returns false
+            coEvery { isRequestAllowedUseCase() } returns false
 
             val job = launch(testDispatcher) {
                 underTest()

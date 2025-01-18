@@ -1,6 +1,7 @@
 package com.joeji.exchange.domain.usecase
 
 import com.joeji.exchange.domain.repository.ExchangeRepository
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -33,7 +34,7 @@ class IsRequestAllowedUseCaseTest {
     @Test
     fun `test that usecase should return true when last request time is null,which is login at the first time`() =
         runTest {
-            every { mockExchangeRepository.getLastRequestTime() } returns null
+            coEvery { mockExchangeRepository.getLastRequestTime() } returns null
 
             val result = underTest()
 
@@ -50,7 +51,7 @@ class IsRequestAllowedUseCaseTest {
             val lastRequestTime =
                 currentTime - IsRequestAllowedUseCase.THIRTY_MINUTES_IN_MILLIS - 1000
 
-            every { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
+            coEvery { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
 
             val result = underTest()
 
@@ -67,7 +68,7 @@ class IsRequestAllowedUseCaseTest {
             val lastRequestTime =
                 currentTime - IsRequestAllowedUseCase.THIRTY_MINUTES_IN_MILLIS + 1000
 
-            every { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
+            coEvery { mockExchangeRepository.getLastRequestTime() } returns lastRequestTime
 
             val result = underTest()
 

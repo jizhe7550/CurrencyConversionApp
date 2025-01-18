@@ -7,7 +7,7 @@ import com.joeji.core.presentation.ui.UiText
 import com.joeji.core.presentation.ui.formatToTwoDecimalPlaces
 import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
-import com.joeji.exchange.domain.usecase.GetBaseCurrencyTypeUseCase
+import com.joeji.exchange.domain.usecase.MonitorBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
 import com.joeji.exchange.presentation.R
@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -31,7 +30,7 @@ import kotlinx.coroutines.withContext
 class ExchangeViewModel(
     private val monitorCurrenciesUseCase: MonitorCurrenciesUseCase,
     private val fetchCurrenciesUseCase: FetchCurrenciesUseCase,
-    private val getBaseCurrencyTypeUseCase: GetBaseCurrencyTypeUseCase,
+    private val monitorBaseCurrencyTypeUseCase: MonitorBaseCurrencyTypeUseCase,
     private val saveBaseCurrencyTypeUseCase: SaveBaseCurrencyTypeUseCase,
     private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -45,21 +44,21 @@ class ExchangeViewModel(
     private var amountChangeJob: Job? = null
 
     init {
-        monitorCurrencies()
         fetchCurrencies()
+        monitorCurrencies()
     }
 
     private fun monitorCurrencies() {
         viewModelScope.launch {
             combine(
                 monitorCurrenciesUseCase(),
-                flowOf(getBaseCurrencyTypeUseCase())
+                monitorBaseCurrencyTypeUseCase(),
             ) { currencies, baseCurrencyType ->
-                val baseCurrency = currencies.find { it.currencyType == baseCurrencyType }
+                val baseCurrency =
+                    currencies.find { it.currencyType == baseCurrencyType }
                 currencies to baseCurrency
             }.catch {
                 println("db issue - upload log")
-
             }.onCompletion {
                 _uiState.update {
                     it.copy(
@@ -67,16 +66,19 @@ class ExchangeViewModel(
                     )
                 }
             }.collectLatest { (currencies, baseCurrency) ->
-                _uiState.update {
-                    it.copy(
-                        baseCurrency = baseCurrency ?: it.baseCurrency,
-                        currencies = currencies,
-                        currencyUIModel = generateUiModel(
+                if (currencies.isNotEmpty()) {
+                    _uiState.update {
+                        it.copy(
                             baseCurrency = baseCurrency ?: it.baseCurrency,
                             currencies = currencies,
-                            validAmount = it.amount.toDouble(),
-                        ),
-                    )
+                            currencyUIModel = generateUiModel(
+                                baseCurrency = baseCurrency ?: it.baseCurrency,
+                                currencies = currencies,
+                                validAmount = it.amount.toDouble(),
+                            ),
+                            isLoading = false,
+                        )
+                    }
                 }
             }
         }

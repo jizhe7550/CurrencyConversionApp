@@ -5,7 +5,7 @@ import com.joeji.exchange.domain.repository.ExchangeRepository
 class IsRequestAllowedUseCase constructor(
     private val repository: ExchangeRepository,
 ) {
-    operator fun invoke(): Boolean {
+    suspend operator fun invoke(): Boolean {
         val lastRequestTime = repository.getLastRequestTime()
         return if (lastRequestTime == null) {
             true

@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -80,36 +81,45 @@ private fun CurrencyConversionActionScreen(
     onValueChange: (String) -> Unit = {},
 ) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        DefaultTextField(
-            text = uiState.amount,
-            title = "Enter Amount",
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = onValueChange,
-            keyboardType = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        CurrencyDropDownMenu(
-            currencies = uiState.currencies,
-            baseCurrency = uiState.baseCurrency,
-            onClick = onClick,
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-        Spacer(
+    if (uiState.isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        Column(
             modifier = Modifier
-                .height(16.dp)
-        )
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            DefaultTextField(
+                text = uiState.amount,
+                title = "Enter Amount",
+                modifier = Modifier.fillMaxWidth(),
+                onValueChange = onValueChange,
+                keyboardType = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            )
 
-        CurrencyLazyList(
-            currencies = uiState.currencyUIModel,
-        )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            CurrencyDropDownMenu(
+                currencies = uiState.currencies,
+                baseCurrency = uiState.baseCurrency,
+                onClick = onClick,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .height(16.dp)
+            )
+
+            CurrencyLazyList(
+                currencies = uiState.currencyUIModel,
+            )
+        }
     }
 }
 

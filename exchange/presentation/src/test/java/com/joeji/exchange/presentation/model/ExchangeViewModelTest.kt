@@ -6,7 +6,7 @@ import com.joeji.core.testing.MainCoroutineExtension
 import com.joeji.core.testing.util.mockCurrencies
 import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
-import com.joeji.exchange.domain.usecase.GetBaseCurrencyTypeUseCase
+import com.joeji.exchange.domain.usecase.MonitorBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
 import io.mockk.Runs
@@ -33,14 +33,14 @@ class ExchangeViewModelTest {
     private lateinit var underTest: ExchangeViewModel
     private lateinit var monitorCurrenciesUseCase: MonitorCurrenciesUseCase
     private lateinit var fetchCurrenciesUseCase: FetchCurrenciesUseCase
-    private lateinit var getBaseCurrencyTypeUseCase: GetBaseCurrencyTypeUseCase
+    private lateinit var monitorBaseCurrencyTypeUseCase: MonitorBaseCurrencyTypeUseCase
     private lateinit var saveBaseCurrencyTypeUseCase: SaveBaseCurrencyTypeUseCase
 
     @BeforeEach
     fun setUp() {
         monitorCurrenciesUseCase = mockk()
         fetchCurrenciesUseCase = mockk()
-        getBaseCurrencyTypeUseCase = mockk()
+        monitorBaseCurrencyTypeUseCase = mockk()
         saveBaseCurrencyTypeUseCase = mockk()
         commonStubs()
         initViewModel()
@@ -50,7 +50,7 @@ class ExchangeViewModelTest {
         underTest = ExchangeViewModel(
             monitorCurrenciesUseCase = monitorCurrenciesUseCase,
             fetchCurrenciesUseCase = fetchCurrenciesUseCase,
-            getBaseCurrencyTypeUseCase = getBaseCurrencyTypeUseCase,
+            monitorBaseCurrencyTypeUseCase = monitorBaseCurrencyTypeUseCase,
             saveBaseCurrencyTypeUseCase = saveBaseCurrencyTypeUseCase,
             defaultDispatcher = StandardTestDispatcher()
         )
@@ -58,7 +58,7 @@ class ExchangeViewModelTest {
 
     private fun commonStubs() {
         coEvery { monitorCurrenciesUseCase() } returns flowOf(emptyList())
-        coEvery { getBaseCurrencyTypeUseCase() } returns "USD"
+        coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf("USD")
         coEvery { fetchCurrenciesUseCase() } just Runs
         coEvery { saveBaseCurrencyTypeUseCase(any(), any()) } just Runs
     }
@@ -71,6 +71,7 @@ class ExchangeViewModelTest {
             assertThat(initialState.amount).isEqualTo("1.00")
             assertThat(initialState.currencyUIModel).isEmpty()
             assertThat(initialState.currencies).isEmpty()
+            assertThat(initialState.isLoading).isTrue()
         }
     }
 
@@ -85,7 +86,7 @@ class ExchangeViewModelTest {
             validAmount = amount.toDouble()
         )
         coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
-        coEvery { getBaseCurrencyTypeUseCase() } returns baseCurrency.currencyType
+        coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(baseCurrency.currencyType)
         initViewModel()
 
         advanceUntilIdle()
@@ -96,6 +97,7 @@ class ExchangeViewModelTest {
             assertThat(updateState.amount).isEqualTo(amount)
             assertThat(updateState.currencyUIModel).isEqualTo(mockUiModel)
             assertThat(updateState.currencies).isEqualTo(mockCurrencies())
+            assertThat(updateState.isLoading).isFalse()
         }
     }
 
@@ -110,7 +112,7 @@ class ExchangeViewModelTest {
             validAmount = defaultState.amount.toDouble()
         )
         coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
-        coEvery { getBaseCurrencyTypeUseCase() } returns defaultState.baseCurrency.currencyType
+        coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)
         initViewModel()
         advanceUntilIdle()
 
@@ -136,7 +138,7 @@ class ExchangeViewModelTest {
             )
 
             coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
-            coEvery { getBaseCurrencyTypeUseCase() } returns defaultState.baseCurrency.currencyType
+            coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)
 
             initViewModel()
             advanceUntilIdle()
