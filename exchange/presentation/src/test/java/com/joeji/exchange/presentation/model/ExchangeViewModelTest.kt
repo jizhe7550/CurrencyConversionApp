@@ -82,11 +82,12 @@ class ExchangeViewModelTest {
         val baseCurrency = Currency("EUR", 0.85)
         val mockCurrencies = mockCurrencies()
         val amount = "1.00"
-        val mockUiModel = underTest.generateUiModel(
-            currencies = mockCurrencies,
-            baseCurrency = baseCurrency,
-            validAmount = amount.toDouble()
-        )
+        val uiModel = mockCurrencies.map {
+            it.toUIModel(
+                validAmount = amount.toDouble(),
+                baseCurrency = baseCurrency
+            )
+        }
         coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
         coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(baseCurrency.currencyType)
         initViewModel()
@@ -97,7 +98,7 @@ class ExchangeViewModelTest {
             val updateState = awaitItem()
             assertThat(updateState.baseCurrency).isEqualTo(baseCurrency)
             assertThat(updateState.amount).isEqualTo(amount)
-            assertThat(updateState.currencyUIModel).isEqualTo(mockUiModel)
+            assertThat(updateState.currencyUIModel).isEqualTo(uiModel)
             assertThat(updateState.currencies).isEqualTo(mockCurrencies())
             assertThat(updateState.isLoading).isFalse()
         }
@@ -108,11 +109,12 @@ class ExchangeViewModelTest {
         val defaultState = ExchangeState()
         val selectedCurrency = Currency("EUR", 0.85)
         val mockCurrencies = mockCurrencies()
-        val uiModel = underTest.generateUiModel(
-            currencies = mockCurrencies,
-            baseCurrency = selectedCurrency,
-            validAmount = defaultState.amount.toDouble()
-        )
+        val uiModel = mockCurrencies.map {
+            it.toUIModel(
+                validAmount = defaultState.amount.toDouble(),
+                baseCurrency = selectedCurrency
+            )
+        }
         coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
         coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)
         initViewModel()
@@ -139,11 +141,12 @@ class ExchangeViewModelTest {
         runTest {
             val defaultState = ExchangeState()
             val mockCurrencies = mockCurrencies()
-            val uiModel = underTest.generateUiModel(
-                currencies = mockCurrencies,
-                baseCurrency = defaultState.baseCurrency,
-                validAmount = input.toDouble()
-            )
+            val uiModel = mockCurrencies.map {
+                it.toUIModel(
+                    validAmount = input.toDouble(),
+                    baseCurrency = defaultState.baseCurrency
+                )
+            }
 
             coEvery { monitorCurrenciesUseCase() } returns flowOf(mockCurrencies)
             coEvery { monitorBaseCurrencyTypeUseCase() } returns flowOf(defaultState.baseCurrency.currencyType)

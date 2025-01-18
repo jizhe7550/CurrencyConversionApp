@@ -153,8 +153,7 @@ class ExchangeViewModel(
         }
     }
 
-    @VisibleForTesting
-    suspend fun generateUiModel(
+    private suspend fun generateUiModel(
         currencies: List<Currency>,
         baseCurrency: Currency = _uiState.value.baseCurrency,
         validAmount: Double = _uiState.value.amount.toDouble(),
