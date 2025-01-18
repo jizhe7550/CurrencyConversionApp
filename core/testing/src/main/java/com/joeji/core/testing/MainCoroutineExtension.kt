@@ -1,4 +1,4 @@
-package com.joeji.core.testing.util
+package com.joeji.core.testing
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

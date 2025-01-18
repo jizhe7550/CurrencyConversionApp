@@ -1,6 +1,6 @@
 package com.joeji.exchange.domain.usecase
 
-import com.joeji.core.testing.util.MainCoroutineExtension
+import com.joeji.core.testing.MainCoroutineExtension
 import com.joeji.exchange.domain.repository.ExchangeRepository
 import io.mockk.coEvery
 import io.mockk.coVerify

@@ -2,7 +2,7 @@ package com.joeji.exchange.data.repository
 
 import com.joeji.core.data.gateway.PreferencesGateway
 import com.joeji.core.domain.util.Result
-import com.joeji.core.testing.util.MainCoroutineExtension
+import com.joeji.core.testing.MainCoroutineExtension
 import com.joeji.core.testing.util.mockCurrencies
 import com.joeji.exchange.data.gateway.ExchangeLocalGateway
 import com.joeji.exchange.data.gateway.ExchangeRemoteGateway

@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -56,23 +57,30 @@ class ExchangeViewModel(
             ) { currencies, baseCurrencyType ->
                 val baseCurrency = currencies.find { it.currencyType == baseCurrencyType }
                 currencies to baseCurrency
-            }.catch { println("db issue - upload log") }
-                .collectLatest { (currencies, baseCurrency) ->
-                    _uiState.update {
-                        it.copy(
+            }.catch {
+                println("db issue - upload log")
+
+            }.onCompletion {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                    )
+                }
+            }.collectLatest { (currencies, baseCurrency) ->
+                _uiState.update {
+                    it.copy(
+                        baseCurrency = baseCurrency ?: it.baseCurrency,
+                        currencies = currencies,
+                        currencyUIModel = generateUiModel(
                             baseCurrency = baseCurrency ?: it.baseCurrency,
                             currencies = currencies,
-                            currencyUIModel = generateUiModel(
-                                baseCurrency = baseCurrency ?: it.baseCurrency,
-                                currencies = currencies,
-                                validAmount = it.amount.toDouble()
-                            ),
-                        )
-                    }
+                            validAmount = it.amount.toDouble(),
+                        ),
+                    )
                 }
+            }
         }
     }
-
 
     private fun fetchCurrencies() {
         viewModelScope.launch {
@@ -103,7 +111,7 @@ class ExchangeViewModel(
         amountChangeJob?.cancel()
         amountChangeJob = viewModelScope.launch {
             val validAmount = input.toDoubleOrNull()
-            if (validAmount != null) {
+            if (validAmount != null && validAmount > 0) {
                 _uiState.update {
                     it.copy(
                         amount = validAmount.formatToTwoDecimalPlaces(),
@@ -146,9 +154,18 @@ class ExchangeViewModel(
         validAmount: Double = _uiState.value.amount.toDouble(),
     ): List<CurrencyUIModel> = withContext(defaultDispatcher) {
         currencies.map { currency ->
-            var newRate = currency.rate * validAmount / baseCurrency.rate
-            newRate = if (newRate < 0.01) 0.01 else newRate
+            val newRate = calculateNewUIRate(currency, validAmount, baseCurrency)
             currency.copy(rate = newRate).toUIModel()
         }
+    }
+
+    @VisibleForTesting
+    fun calculateNewUIRate(
+        currency: Currency,
+        validAmount: Double,
+        baseCurrency: Currency
+    ): Double {
+        val newUIRate = currency.rate * validAmount / baseCurrency.rate
+        return maxOf(newUIRate, 0.01)
     }
 }

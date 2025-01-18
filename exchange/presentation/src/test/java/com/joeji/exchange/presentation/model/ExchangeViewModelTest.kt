@@ -2,7 +2,7 @@ package com.joeji.exchange.presentation.model
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.joeji.core.testing.util.MainCoroutineExtension
+import com.joeji.core.testing.MainCoroutineExtension
 import com.joeji.core.testing.util.mockCurrencies
 import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
@@ -23,6 +23,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineExtension::class)
@@ -151,21 +153,45 @@ class ExchangeViewModelTest {
             }
         }
 
-    @Test
-    fun `test that onAmountChange triggers error event when input is invalid`() = runTest {
-        val invalidInput = "invalid"
+    @ParameterizedTest
+    @ValueSource(strings = ["invalidInput", "##", "0.00", "-10.00"])
+    fun `test that onAmountChange triggers error event when input is invalid input`(invalidInput: String) =
+        runTest {
+            underTest.onAmountChange(invalidInput)
 
-        underTest.onAmountChange(invalidInput)
-
-        underTest.events.test {
-            val event = awaitItem()
-            assertThat(event).isInstanceOf(ExchangeEvent.Error::class.java)
+            underTest.events.test {
+                val event = awaitItem()
+                assertThat(event).isInstanceOf(ExchangeEvent.Error::class.java)
+            }
         }
-    }
 
     @Test
     fun `test that fetchCurrencies calls use case`() = runTest {
         initViewModel()
         coVerify { fetchCurrenciesUseCase() }
+    }
+
+    @Test
+    fun `test that calculateNewRate works correctly`() {
+        val baseCurrency = Currency(currencyType = "base", rate = 1.0)
+        val fakeCurrency = Currency(currencyType = "fake", rate = 4.5)
+        val validAmount = 100.0
+
+        val result = underTest.calculateNewUIRate(fakeCurrency, validAmount, baseCurrency)
+
+        val expectUIRate = validAmount * fakeCurrency.rate
+        assertThat(result).isEqualTo(expectUIRate)
+    }
+
+    @Test
+    fun `test that calculateNewRate when result is less than 001`() {
+        val baseCurrency = Currency(currencyType = "base", rate = 4.5)
+        val fakeCurrency = Currency(currencyType = "fake", rate = 0.1)
+        val validAmount = 0.01
+
+        val result = underTest.calculateNewUIRate(fakeCurrency, validAmount, baseCurrency)
+
+        val expectUIRate = 0.01
+        assertThat(result).isEqualTo(expectUIRate)
     }
 }
