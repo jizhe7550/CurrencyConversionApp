@@ -1,9 +1,11 @@
 # CurrencyConversionApp
 
 This is a currency conversion app that allows a user to view a given amount in a given currency converted into other currencies.
+- Offline first app, support HTTP caching and Database caching
+- Compose + Clean Architecture + Multimodule
 
 # Guide
-This guide may help you understand my intentions and the rationale behind the implementation. Although this challenge is a demo, I applied Industry-level project strategies in its development, especially considering the perspective of PayPay in terms of architectural design and feature development. For example, module design, feature design, and attention to detail. Please see the details below.
+This guide may help you understand my intentions and the rationale behind the implementation. Although this challenge is a demo, I applied Industry-level project strategies in its development, especially considering the perspective of PayPay in terms of architectural design and feature development. For example, module design, feature design. Please see the details below.
 
 # Architecture 
 ## Clean architecture 
@@ -21,13 +23,18 @@ There are some popular modularization strategies, which I know are Layer-Based/F
 - The dependency management of multiple modules is made possible by plugin development in the build-logic module, which has significantly reduced the amount of boilerplate Gradle code.
 
 # About testing
+According to the testing pyramid strategy, we should spend more time covering smaller tests, such as unit tests, to detect issues early, fix them promptly, and reduce costs. In the demo, I primarily focused on testing the domain, ViewModel, and repository, as these components typically don’t change frequently. On the other hand, the UI often changes according to user preference trends and design principle. Therefore, for UI testing, we should integrate it with the pipeline to ensure comprehensive testing.
 
-## Unit testing - I covered most of the feature layers, but I still left Gateway because I believe it is enough to show my testing skills.
-- In exchange:domain:test, I show how to use mock to test usecases. 
-- In exchange:data:test, I show how to use fake to test repository
-- In exchange:presentation:test, I show how to unit test state and viewModel.
+## Unit testing
+- In exchange:domain:test
+- In exchange:data:test
+- In exchange:presentation:test
+- TBD - Gateway, DB, API.
 
-## UI testing - TBD
+## UI testing
+- In exchange:presentation:androidTest
+- TBD Integration UI testing with VM
+- TBD End-to-End Testing
 
 # Techs
 - Kotlin
@@ -37,9 +44,10 @@ There are some popular modularization strategies, which I know are Layer-Based/F
 - Koin
 - Testing
 
-# TODO
+# Improvement
 - Pagination
 Due to the unclear and incomplete requirements of the demo, if the list data is sorted from most-used to least-used, pagination could be added. However, if the list data is sorted alphabetically, loading and updating all 167 currencies at once would provide a better user experience. Personally, I lean towards loading all the data at once because, from PayPay's perspective, I believe this feature should be a standalone module. It is not something users would use heavily, and therefore, it is more suitable as a Dynamic Feature Module.
-
 - Error handling
+In the real world, we should handle Errors properly to give the best UX to users. However, the demo is using try catch strategy.
+- Typical input bugs, in the real world, we'd better customise a keyboard to limit input invalid cases. In the demo, I only handle common cases.
 
