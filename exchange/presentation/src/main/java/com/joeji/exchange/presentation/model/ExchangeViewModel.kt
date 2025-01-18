@@ -1,6 +1,5 @@
 package com.joeji.exchange.presentation.model
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joeji.core.presentation.ui.UiText
@@ -112,7 +111,7 @@ class ExchangeViewModel(
     fun onAmountChange(input: String) {
         amountChangeJob?.cancel()
         amountChangeJob = viewModelScope.launch {
-            var validAmount = input.toDoubleOrNull()
+            val validAmount = input.toDoubleOrNull()
             if (validAmount != null) {
                 _uiState.update {
                     it.copy(

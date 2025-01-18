@@ -24,8 +24,19 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 )
 
                 defaultConfig {
-                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    testInstrumentationRunner =
+                        "com.joeji.core.common.androidtest.InstrumentationTestRunner"
                     consumerProguardFiles("consumer-rules.pro")
+                }
+
+                packaging {
+                    resources.excludes.addAll(
+                        listOf(
+                            "META-INF/LICENSE.md",
+                            "META-INF/LICENSE-notice.md",
+                            "META-INF/NOTICE.md"
+                        )
+                    )
                 }
             }
         }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="invalid_input_is_not_a_valid_number">Invalid input: %1$s is not a valid number.</string>
+    <string name="currency_coversion_screen_text_field_title_enter_amount">Enter Amount</string>
 </resources>

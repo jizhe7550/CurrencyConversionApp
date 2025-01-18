@@ -1,6 +1,7 @@
 package com.joeji.exchange.presentation
 
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -67,15 +71,16 @@ fun CurrencyConversionScreenRoot(
         }
     }
 
-    CurrencyConversionActionScreen(
+    CurrencyConversionScreen(
         uiState = uiState,
         onClick = viewModel::onCurrencySelected,
         onValueChange = viewModel::onAmountChange,
     )
 }
 
+@VisibleForTesting
 @Composable
-private fun CurrencyConversionActionScreen(
+fun CurrencyConversionScreen(
     uiState: ExchangeState,
     onClick: (Currency) -> Unit = {},
     onValueChange: (String) -> Unit = {},
@@ -86,7 +91,11 @@ private fun CurrencyConversionActionScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
         ) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                modifier = Modifier.semantics {
+                    contentDescription = "Progress Indicator"
+                }
+            )
         }
     } else {
         Column(
@@ -96,7 +105,7 @@ private fun CurrencyConversionActionScreen(
         ) {
             DefaultTextField(
                 text = uiState.amount,
-                title = "Enter Amount",
+                title = stringResource(R.string.currency_coversion_screen_text_field_title_enter_amount),
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = onValueChange,
                 keyboardType = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -192,7 +201,7 @@ private fun CurrencyLazyList(
                 rightText = item.rate,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
+                    .padding(20.dp),
             )
         }
     }
@@ -202,7 +211,7 @@ private fun CurrencyLazyList(
 @Composable
 private fun CurrencyConversionActionScreenPreview() {
     CurrencyConversionAppTheme {
-        CurrencyConversionActionScreen(
+        CurrencyConversionScreen(
             uiState = ExchangeState(),
         )
     }

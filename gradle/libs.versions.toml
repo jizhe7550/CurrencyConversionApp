@@ -215,7 +215,7 @@ ktor = [
     "ktor-client-content-negotiation",
     "ktor-client-core",
     "ktor-client-logging",
-    "ktor-serialization-kotlinx-json"
+    "ktor-serialization-kotlinx-json",
 ]
 #Test
 unit-test = ["truth", "mockito", "mockito-inline", "mockito-kotlin", "turbine", "mockk", "konsist", "coroutines-test"]

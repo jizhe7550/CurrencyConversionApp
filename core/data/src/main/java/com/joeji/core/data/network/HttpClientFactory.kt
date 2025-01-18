@@ -3,6 +3,7 @@ package com.joeji.core.data.network
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpRequestRetry
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -37,6 +38,7 @@ class HttpClientFactory() {
                 retryOnServerErrors(maxRetries = 5)
                 exponentialDelay()
             }
+            install(HttpCache)
             defaultRequest {
                 contentType(ContentType.Application.Json)
             }

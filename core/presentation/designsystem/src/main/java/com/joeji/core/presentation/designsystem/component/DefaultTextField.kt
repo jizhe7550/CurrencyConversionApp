@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +47,6 @@ fun DefaultTextField(
                 text = title,
             )
         }
-
         TextField(
             value = text,
             onValueChange = onValueChange,
@@ -56,6 +56,7 @@ fun DefaultTextField(
                 .background(
                     MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.05f)
                 )
+                .testTag(TEST_TAG_CURRENCY_CONVERSION_TEXT_FIELD)
                 .border(
                     width = 1.dp,
                     color = if (isFocused) {
@@ -78,6 +79,8 @@ fun DefaultTextField(
         )
     }
 }
+
+const val TEST_TAG_CURRENCY_CONVERSION_TEXT_FIELD = "test_tag_currency_conversion_text_field"
 
 @Preview
 @Composable

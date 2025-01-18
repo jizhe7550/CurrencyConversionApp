@@ -13,4 +13,6 @@ dependencies {
     implementation(projects.exchange.domain)
 
     testImplementation(projects.core.testing)
+    androidTestImplementation(projects.core.testing)
+    androidTestImplementation(libs.truth)
 }

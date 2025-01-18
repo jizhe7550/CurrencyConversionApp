@@ -25,7 +25,7 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
                     versionName = libs.findVersion("projectVersionName").get().toString()
 
                     defaultConfig {
-                        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                        testInstrumentationRunner = "com.joeji.core.common.androidtest.InstrumentationTestRunner"
                         vectorDrawables {
                             useSupportLibrary = true
                         }
