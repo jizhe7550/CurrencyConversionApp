@@ -1,8 +1,9 @@
 # CurrencyConversionApp
-
 This is a currency conversion app that allows a user to view a given amount in a given currency converted into other currencies.
 - Offline first app, support HTTP caching and Database caching
 - Compose + Clean Architecture + Multimodule
+- To Run this app, you need to get an API key from https://www.currencyconverterapi.com/ and put it in the local.properties file like below.
+```API_KEY = your key```
 
 # Guide
 This guide may help you understand my intentions and the rationale behind the implementation. Although this challenge is a demo, I applied Industry-level project strategies in its development, especially considering the perspective of PayPay in terms of architectural design and feature development. For example, module design, feature design. Please see the details below.
