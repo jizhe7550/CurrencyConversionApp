@@ -80,8 +80,4 @@ class FakePreferenceDataStore : PreferencesGateway {
             preferences.remove(key)
         }
     }
-
-    fun clear() {
-        preferences.clear()
-    }
 }

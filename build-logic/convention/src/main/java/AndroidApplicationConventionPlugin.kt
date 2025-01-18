@@ -23,6 +23,13 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
 
                     versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
                     versionName = libs.findVersion("projectVersionName").get().toString()
+
+                    defaultConfig {
+                        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                        vectorDrawables {
+                            useSupportLibrary = true
+                        }
+                    }
                 }
 
                 configureKotlinAndroid(this)

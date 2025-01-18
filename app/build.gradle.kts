@@ -5,13 +5,6 @@ plugins {
 
 android {
     namespace = "com.joeji.currencyconversionapp"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-    }
 }
 
 dependencies {
