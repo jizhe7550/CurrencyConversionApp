@@ -1,8 +1,8 @@
-package com.joeji.exchange.presentation.exchange.mapper
+package com.joeji.exchange.presentation.mapper
 
 import com.joeji.core.presentation.ui.formatToTwoDecimalPlaces
 import com.joeji.exchange.domain.model.Currency
-import com.joeji.exchange.presentation.exchange.model.CurrencyUIModel
+import com.joeji.exchange.presentation.model.CurrencyUIModel
 
 fun Currency.toUIModel(): CurrencyUIModel {
     return CurrencyUIModel(

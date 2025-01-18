@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.exchange.model
+package com.joeji.exchange.presentation.model
 
 import com.joeji.core.presentation.ui.UiText
 

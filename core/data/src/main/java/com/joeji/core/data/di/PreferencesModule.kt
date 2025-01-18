@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.joeji.core.common.di.qualifier.IoDispatcherQualifier
 import com.joeji.core.data.datastore.AppPreferencesDatastore
-import com.joeji.core.data.di.qualifier.IoDispatcherQualifier
 import com.joeji.core.data.gateway.PreferencesGateway
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.bind

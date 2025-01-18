@@ -17,6 +17,7 @@ dependencies {
     implementation(projects.core.database)
 
     implementation(projects.exchange.domain)
+    implementation(project(":core:common"))
 
     testImplementation(projects.core.testing)
 }

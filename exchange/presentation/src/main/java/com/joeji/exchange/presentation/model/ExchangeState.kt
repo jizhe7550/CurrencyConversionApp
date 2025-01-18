@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.exchange.model
+package com.joeji.exchange.presentation.model
 
 import androidx.compose.runtime.Immutable
 import com.joeji.exchange.domain.model.Currency

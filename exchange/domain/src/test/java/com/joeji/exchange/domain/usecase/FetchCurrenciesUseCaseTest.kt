@@ -79,7 +79,7 @@ class FetchCurrenciesUseCaseTest {
                 underTest()
             }
 
-            advanceTimeBy(FetchCurrenciesUseCase.CHECKING_INTERVAL * 3)  // Wait for 3 cycles
+            advanceTimeBy(FetchCurrenciesUseCase.CHECKING_INTERVAL * 3)
 
             coVerify(exactly = 2) { mockExchangeRepository.fetchCurrencies() }
 
@@ -95,7 +95,7 @@ class FetchCurrenciesUseCaseTest {
                 underTest()
             }
 
-            advanceTimeBy(FetchCurrenciesUseCase.CHECKING_INTERVAL * 2)  // Wait for 2 cycles
+            advanceTimeBy(FetchCurrenciesUseCase.CHECKING_INTERVAL * 2)
 
             coVerify(exactly = 1) { mockExchangeRepository.fetchCurrencies() }
 

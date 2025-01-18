@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.exchange.model
+package com.joeji.exchange.presentation.model
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat

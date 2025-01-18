@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.exchange.model
+package com.joeji.exchange.presentation.model
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,7 @@ import com.joeji.exchange.domain.usecase.GetBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
 import com.joeji.exchange.presentation.R
-import com.joeji.exchange.presentation.exchange.mapper.toUIModel
+import com.joeji.exchange.presentation.mapper.toUIModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel

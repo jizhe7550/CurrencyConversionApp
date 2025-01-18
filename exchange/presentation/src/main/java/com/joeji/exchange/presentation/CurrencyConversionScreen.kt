@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.exchange
+package com.joeji.exchange.presentation
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -38,14 +38,14 @@ import com.joeji.core.presentation.designsystem.component.DefaultListItem
 import com.joeji.core.presentation.designsystem.component.DefaultTextField
 import com.joeji.core.presentation.ui.ObserveAsEvents
 import com.joeji.exchange.domain.model.Currency
-import com.joeji.exchange.presentation.exchange.model.CurrencyUIModel
-import com.joeji.exchange.presentation.exchange.model.ExchangeEvent
-import com.joeji.exchange.presentation.exchange.model.ExchangeState
-import com.joeji.exchange.presentation.exchange.model.ExchangeViewModel
+import com.joeji.exchange.presentation.model.CurrencyUIModel
+import com.joeji.exchange.presentation.model.ExchangeEvent
+import com.joeji.exchange.presentation.model.ExchangeState
+import com.joeji.exchange.presentation.model.ExchangeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ExchangeScreenRoot(
+fun CurrencyConversionScreenRoot(
     viewModel: ExchangeViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -78,7 +78,6 @@ private fun CurrencyConversionActionScreen(
     uiState: ExchangeState,
     onClick: (Currency) -> Unit = {},
     onValueChange: (String) -> Unit = {},
-    onLoadNextItems: () -> Unit = {},
 ) {
 
     Column(

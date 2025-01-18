@@ -1,4 +1,4 @@
-package com.joeji.exchange.presentation.di.qualifier
+package com.joeji.core.common.di.qualifier
 
 import org.koin.core.qualifier.Qualifier
 

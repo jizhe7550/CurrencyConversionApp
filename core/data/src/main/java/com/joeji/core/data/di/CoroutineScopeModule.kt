@@ -1,9 +1,9 @@
 package com.joeji.core.data.di
 
-import com.joeji.core.data.di.qualifier.DefaultDispatcherQualifier
-import com.joeji.core.data.di.qualifier.IoDispatcherQualifier
-import com.joeji.core.data.di.qualifier.MainDispatcherQualifier
-import com.joeji.core.data.di.qualifier.MainImmediateDispatcherQualifier
+import com.joeji.core.common.di.qualifier.DefaultDispatcherQualifier
+import com.joeji.core.common.di.qualifier.IoDispatcherQualifier
+import com.joeji.core.common.di.qualifier.MainDispatcherQualifier
+import com.joeji.core.common.di.qualifier.MainImmediateDispatcherQualifier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module

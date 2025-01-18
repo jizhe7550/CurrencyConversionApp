@@ -13,4 +13,5 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
 
     implementation(projects.core.domain)
+    implementation(projects.core.common)
 }

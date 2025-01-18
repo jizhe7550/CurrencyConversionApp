@@ -1,12 +1,12 @@
 package com.joeji.exchange.presentation.di
 
+import com.joeji.core.common.di.qualifier.DefaultDispatcherQualifier
 import com.joeji.exchange.domain.usecase.FetchCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.GetBaseCurrencyTypeUseCase
 import com.joeji.exchange.domain.usecase.IsRequestAllowedUseCase
 import com.joeji.exchange.domain.usecase.MonitorCurrenciesUseCase
 import com.joeji.exchange.domain.usecase.SaveBaseCurrencyTypeUseCase
-import com.joeji.exchange.presentation.di.qualifier.DefaultDispatcherQualifier
-import com.joeji.exchange.presentation.exchange.model.ExchangeViewModel
+import com.joeji.exchange.presentation.model.ExchangeViewModel
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module

@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
+    implementation(projects.core.common)
     implementation(projects.exchange.domain)
 
     testImplementation(projects.core.testing)
