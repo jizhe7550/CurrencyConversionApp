@@ -37,7 +37,7 @@ According to the testing pyramid strategy, we should spend more time covering sm
 - RoomLocalGatewayImplTest
 
 ## UI testing
-- In exchange:presentation:androidTest
+- In exchange:presentation:androidTest CurrencyConversionScreenTest
 - TBD Integration UI testing with VM
 - TBD End-to-End Testing
 
@@ -46,13 +46,16 @@ According to the testing pyramid strategy, we should spend more time covering sm
 - Jetpack Compose
 - Coroutine
 - Ktor
-- Koin
-- Testing
+- Hilt
+- Junit5
+- Mockk
 
 # Improvement
 - Pagination
 Due to the unclear and incomplete requirements of the demo, if the list data is sorted from most-used to least-used, pagination could be added. However, if the list data is sorted alphabetically, loading and updating all 167 currencies at once would provide a better user experience. Personally, I lean towards loading all the data at once because, from PayPay's perspective, I believe this feature should be a standalone module. It is not something users would use heavily, and therefore, it is more suitable as a Dynamic Feature Module.
 - Error handling
 In the real world, we should handle Errors properly to give the best UX to users. However, the demo is using try catch strategy.
-- Typical input bugs, in the real world, we'd better customise a keyboard to limit input invalid cases. In the demo, I only handle common cases.
+- UI detail
+Typical input bugs, in the real world, we'd better customise a keyboard to limit input invalid cases. In the demo, I only handle common cases.
+- Dynamic Feature module 
 
