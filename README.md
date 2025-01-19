@@ -26,11 +26,15 @@ There are some popular modularization strategies, which I know are Layer-Based/F
 # About testing
 According to the testing pyramid strategy, we should spend more time covering smaller tests, such as unit tests, to detect issues early, fix them promptly, and reduce costs. In the demo, I primarily focused on testing the domain, ViewModel, and repository, as these components typically don’t change frequently. On the other hand, the UI often changes according to user preference trends and design principle. Therefore, for UI testing, we should integrate it with the pipeline to ensure comprehensive testing.
 
-## Unit testing
+## Unit Testing
 - In exchange:domain:test
 - In exchange:data:test
 - In exchange:presentation:test
 - TBD - Gateway, DB, API.
+
+## Instrumentation Testing
+# Intergration Testing
+- RoomLocalGatewayImplTest
 
 ## UI testing
 - In exchange:presentation:androidTest
