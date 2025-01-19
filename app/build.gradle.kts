@@ -37,6 +37,8 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.data)
     implementation(projects.core.database)
+    implementation(projects.core.common)
+    implementation(projects.core.testing)
 
     implementation(projects.exchange.presentation)
     implementation(projects.exchange.domain)

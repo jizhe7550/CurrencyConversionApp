@@ -1,4 +1,4 @@
-package com.joeji.core.common
+package com.joeji.core.ui_testing
 
 import org.junit.Test
 

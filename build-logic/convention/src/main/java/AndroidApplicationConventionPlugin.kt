@@ -3,11 +3,13 @@ import com.joeji.convention.ExtensionType
 import com.joeji.convention.configureBuildTypes
 import com.joeji.convention.configureKotlinAndroid
 import com.joeji.convention.libs
+import com.joeji.convention.useJUnit5
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
-class AndroidApplicationConventionPlugin: Plugin<Project>{
+class AndroidApplicationConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         target.run {
@@ -24,11 +26,9 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
                     versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
                     versionName = libs.findVersion("projectVersionName").get().toString()
 
-                    defaultConfig {
-                        testInstrumentationRunner = "com.joeji.core.common.androidtest.HiltTestRunner"
-                        vectorDrawables {
-                            useSupportLibrary = true
-                        }
+                    testInstrumentationRunner = "com.joeji.core.ui_testing.HiltTestRunner"
+                    vectorDrawables {
+                        useSupportLibrary = true
                     }
                 }
 
@@ -38,7 +38,8 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
                             "META-INF/LICENSE.md",
                             "META-INF/LICENSE-notice.md",
                             "META-INF/NOTICE.md",
-                            "META-INF/gradle/incremental.annotation.processors"
+                            "META-INF/gradle/incremental.annotation.processors",
+                            "kotlin/coroutines/coroutines.kotlin_builtins",
                         )
                     )
                 }
@@ -49,6 +50,13 @@ class AndroidApplicationConventionPlugin: Plugin<Project>{
                     commonExtension = this,
                     extensionType = ExtensionType.APPLICATION
                 )
+            }
+            useJUnit5()
+            dependencies {
+                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
+                "testImplementation"(libs.findLibrary("kotlin.test").get())
+
+                "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
             }
         }
     }

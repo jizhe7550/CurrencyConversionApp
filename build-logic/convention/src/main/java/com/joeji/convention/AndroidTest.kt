@@ -56,13 +56,22 @@ fun Project.configureTestOptionsIfAndroidLibrary() {
     }
 }
 
-fun Project.configureTestingDependencies(){
+fun Project.configureTestingDependencies() {
     dependencies {
         "testImplementation"(kotlin("test"))
         "testImplementation"(libs.findBundle("unit.test").get())
         "testImplementation"(libs.findBundle("junit5.api").get())
     }
 }
+
+fun Project.configureAndroidTestingDependencies() {
+    dependencies {
+        "androidTestImplementation"(libs.findBundle("unit.test").get())
+        "androidTestImplementation"(libs.findBundle("junit5.api").get())
+        "androidTestImplementation"(libs.findBundle("ui.test").get())
+    }
+}
+
 private fun Project.setTestReportPath(unitTestOptions: UnitTestOptions) {
     unitTestOptions.all {
         it.reports {

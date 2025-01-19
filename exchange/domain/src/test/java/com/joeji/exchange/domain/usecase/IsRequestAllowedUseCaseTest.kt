@@ -1,15 +1,13 @@
 package com.joeji.exchange.domain.usecase
 
+import com.google.common.truth.Truth.assertThat
 import com.joeji.exchange.domain.repository.ExchangeRepository
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 /**
  * This test case is showing how to use fake
@@ -38,10 +36,7 @@ class IsRequestAllowedUseCaseTest {
 
             val result = underTest()
 
-            assertTrue(
-                result,
-                "Should return true when there is no last request time because login at first time"
-            )
+            assertThat(result).isTrue()
         }
 
     @Test
@@ -55,10 +50,7 @@ class IsRequestAllowedUseCaseTest {
 
             val result = underTest()
 
-            assertTrue(
-                result,
-                "Should return true when more than 30 minutes have passed since last request"
-            )
+            assertThat(result).isTrue()
         }
 
     @Test
@@ -72,9 +64,6 @@ class IsRequestAllowedUseCaseTest {
 
             val result = underTest()
 
-            assertFalse(
-                result,
-                "Should return false when less than 30 minutes have passed since last request"
-            )
+            assertThat(result).isFalse()
         }
 }

@@ -1,12 +1,17 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.library)
     alias(libs.plugins.currencyconversionapp.jvm.ktor)
-    alias(libs.plugins.currencyconversionapp.android.test)
     alias(libs.plugins.currencyconversionapp.hilt)
 }
 
 android {
     namespace = "com.joeji.exchange.data"
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -20,4 +25,12 @@ dependencies {
     implementation(projects.core.common)
 
     testImplementation(projects.core.testing)
+    testImplementation(platform(libs.junit5.bom))
+    testImplementation(libs.bundles.junit5.api)
+    testImplementation(libs.bundles.unit.test)
+
+    androidTestImplementation(projects.core.uiTesting)
+    androidTestImplementation(libs.bundles.unit.test)
+    androidTestImplementation(libs.bundles.hilt.android.test)
+    kspAndroidTest(libs.hilt.android.compiler)
 }

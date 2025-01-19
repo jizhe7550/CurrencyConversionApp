@@ -8,7 +8,7 @@ fun DependencyHandlerScope.addUiLayerDependencies(project: Project) {
     "implementation"(project(":core:presentation:ui"))
     "implementation"(project(":core:presentation:designsystem"))
 
-    "implementation"(project.libs.findBundle("hilt-compose").get())
+    "implementation"(project.libs.findLibrary("androidx.hilt.navigation.compose").get())
     "implementation"(project.libs.findBundle("compose").get())
     "debugImplementation"(project.libs.findBundle("compose.debug").get())
     "androidTestImplementation"(project.libs.findLibrary("androidx.compose.ui.test.junit4").get())

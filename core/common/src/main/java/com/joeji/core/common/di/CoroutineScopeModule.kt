@@ -1,4 +1,4 @@
-package com.joeji.core.data.di
+package com.joeji.core.common.di
 
 import com.joeji.core.common.di.qualifier.DefaultDispatcher
 import com.joeji.core.common.di.qualifier.IoDispatcher

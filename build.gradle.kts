@@ -10,3 +10,15 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.hilt) apply false
 }
+
+subprojects {
+    afterEvaluate {
+        configurations.all {
+            resolutionStrategy.eachDependency {
+                if (requested.group == "org.jetbrains.kotlin") {
+                    useVersion(libs.versions.kotlin.get())
+                }
+            }
+        }
+    }
+}

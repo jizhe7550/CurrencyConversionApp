@@ -16,7 +16,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideUserDatabase(@ApplicationContext context: Context): ExchangeDatabase {
+    fun provideExchangeDatabase(@ApplicationContext context: Context): ExchangeDatabase {
         return ExchangeDatabase.init(
             context = context,
         )
@@ -24,7 +24,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providerUserDao(database: ExchangeDatabase): CurrencyDao {
+    fun providerExchangeDao(database: ExchangeDatabase): CurrencyDao {
         return database.currencyDao()
     }
 }

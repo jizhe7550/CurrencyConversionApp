@@ -1,6 +1,5 @@
 import com.joeji.convention.configureTestOptionsIfAndroidApplication
 import com.joeji.convention.configureTestOptionsIfAndroidLibrary
-import com.joeji.convention.configureTestingDependencies
 import com.joeji.convention.enableParallelTest
 import com.joeji.convention.useJUnit5
 import org.gradle.api.Plugin
@@ -17,12 +16,17 @@ class AndroidTestConventionPlugin : Plugin<Project> {
      * @param target The target object
      */
     override fun apply(target: Project) {
-        with(target) {
+        target.run {
+            pluginManager.run {
+                apply("com.android.test")
+                apply("org.jetbrains.kotlin.android")
+            }
             useJUnit5()
             configureTestOptionsIfAndroidLibrary()
             configureTestOptionsIfAndroidApplication()
             enableParallelTest()
-            configureTestingDependencies()
+//            configureTestingDependencies()
+//            configureAndroidTestingDependencies()
         }
     }
 }
