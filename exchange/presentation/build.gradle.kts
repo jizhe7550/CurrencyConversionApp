@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.currencyconversionapp.android.feature.ui)
     alias(libs.plugins.currencyconversionapp.hilt)
+    alias(libs.plugins.currencyconversionapp.android.library.jacoco)
 }
 
 android {

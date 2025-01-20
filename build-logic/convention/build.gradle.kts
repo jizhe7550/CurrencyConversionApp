@@ -62,5 +62,13 @@ gradlePlugin {
             id = "currencyconversionapp.hilt"
             implementationClass = "HiltConventionPlugin"
         }
+        register("jacoco-android") {
+            id = "currencyconversionapp.android.jacoco"
+            implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
+        register("jacoco-android-library") {
+            id = "currencyconversionapp.android.library.jacoco"
+            implementationClass = "AndroidLibraryJacocoConventionPlugin"
+        }
     }
 }

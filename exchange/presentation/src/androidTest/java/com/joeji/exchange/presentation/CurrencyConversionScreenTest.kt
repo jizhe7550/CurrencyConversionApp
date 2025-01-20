@@ -6,16 +6,13 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import com.joeji.core.presentation.designsystem.CurrencyConversionAppTheme
 import com.joeji.core.testing.util.mockCurrencies
-import com.joeji.core.ui_testing.ExchangeAndroidTest
 import com.joeji.exchange.domain.model.Currency
 import com.joeji.exchange.presentation.mapper.toUIModel
 import com.joeji.exchange.presentation.model.ExchangeState
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
 
-@HiltAndroidTest
-class CurrencyConversionScreenTest: ExchangeAndroidTest() {
+class CurrencyConversionScreenTest {
 
     @get:Rule
     val composeRule = createComposeRule()
