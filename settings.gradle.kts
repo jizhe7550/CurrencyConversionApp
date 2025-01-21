@@ -1,7 +1,17 @@
 @file:Suppress("UnstableApiUsage")
 
 include(":core:ui-testing")
-
+include(":app")
+include(":exchange:data")
+include(":exchange:domain")
+include(":exchange:presentation")
+include(":core:presentation:designsystem")
+include(":core:presentation:ui")
+include(":core:domain")
+include(":core:data")
+include(":core:database")
+include(":core:testing")
+include(":core:common")
 
 pluginManagement {
     includeBuild("build-logic")
@@ -27,14 +37,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CurrencyConversionApp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":app")
-include(":exchange:data")
-include(":exchange:domain")
-include(":exchange:presentation")
-include(":core:presentation:designsystem")
-include(":core:presentation:ui")
-include(":core:domain")
-include(":core:data")
-include(":core:database")
-include(":core:testing")
-include(":core:common")
+

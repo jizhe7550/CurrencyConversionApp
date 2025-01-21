@@ -66,6 +66,7 @@ internal fun Project.configureBuildTypes(
 private fun BuildType.configureDebugBuildType(apiKey: String) {
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
     buildConfigField("String", "BASE_URL", "\"https://openexchangerates.org/api\"")
+    enableUnitTestCoverage = true
 }
 
 private fun BuildType.configureReleaseBuildType(

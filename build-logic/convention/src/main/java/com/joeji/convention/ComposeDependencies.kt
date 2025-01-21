@@ -13,4 +13,5 @@ fun DependencyHandlerScope.addUiLayerDependencies(project: Project) {
     "debugImplementation"(project.libs.findBundle("compose.debug").get())
     "androidTestImplementation"(project.libs.findLibrary("androidx.compose.ui.test.junit4").get())
     "debugImplementation"(project.libs.findLibrary("androidx.compose.ui.test.manifest").get())
+    "testImplementation"(project.libs.findLibrary("androidx.navigation.testing").get())
 }
