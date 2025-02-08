@@ -12,7 +12,7 @@ This guide may help you understand my intentions and the rationale behind the im
 ## Clean architecture 
 ![image](https://github.com/user-attachments/assets/2192ea12-224d-4c7d-929d-677998a94fcf)
 
-## MutilModule 
+## MultiModule 
 There are some popular modularization strategies, which I know are Layer-Based/Featured-Based/Component-Based. In this demo, I chose the mix strategy since I feel this is more flexible. Here just highlight some crucial points as below.
 - The core module is a shared module, which can be reused by other modules.
 - The exchange module is a typical feature module.
