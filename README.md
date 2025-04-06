@@ -6,7 +6,7 @@ This is a currency conversion app that allows a user to view a given amount in a
 ```API_KEY = your key```
 
 # Guide
-This guide may help you understand my intentions and the rationale behind the implementation. Although this challenge is a demo, I applied Industry-level project strategies in its development, especially considering the perspective of PayPay in terms of architectural design and feature development. For example, module design, feature design. Please see the details below.
+This guide may help you understand my intentions and the rationale behind the implementation. Although this challenge is a demo, I applied Industry-level project strategies in its development, especially considering the perspective of xxxx in terms of architectural design and feature development. For example, module design, feature design. Please see the details below.
 
 # Architecture 
 ## Clean architecture 
